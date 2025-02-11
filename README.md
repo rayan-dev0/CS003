@@ -1,84 +1,67 @@
-# Turborepo starter
+CS003 - Muaz Hasan P
 
-This Turborepo starter is maintained by the Turborepo core team.
+E-Commerce Platform Overview
+A multi-role e-commerce platform, catering to four distinct user roles: Customer, Seller, Delivery Boy, and Admin. The system is designed to be scalable, with a cross-platform mobile app for Customers and Delivery Boys (React Expo) and web dashboards for Sellers and Admins (Next.js). MongoDB serves as the database, and Azure Blob Storage is used for storing files and media.
 
-## Using this example
+1. Customer Panel (React Expo - Mobile App)
+Key Features:
+* User Registration/Login (via email, phone, social media)
+* Product Browsing & Search (categories, filters, recommendations)
+* Product Details Page (images, descriptions, reviews, ratings)
+* Shopping Cart & Checkout
+* Order Placement
+* Order Tracking & Status Updates (Pending, Shipped, Out for Delivery, Delivered)
+* Notifications (Order Updates, Discounts, Promotions)
 
-Run the following command:
+2. Seller Panel (Next.js - Web Dashboard)
+Key Features:
+* Seller Registration/Login
+* Store Management (business details, store profile)
+* Product Management (add, edit, delete products)
+* Inventory Management (track stock levels)
+* Order Management (view customer orders, process orders)
+* Assign Orders to Delivery Boys (manual/automated allocation)
+* Delivery Boy Management (add, remove, assign orders)
+* Revenue & Sales Analytics (track earnings, order trends)
 
-```sh
-npx create-turbo@latest
-```
+3. Delivery Boy Panel (React Expo - Mobile App)
+Key Features:
+* Delivery Boy Registration/Login
+* Receive Delivery Alerts (push notifications for new deliveries)
+* View Assigned Deliveries (list of deliveries assigned by the seller)
+* Navigation to Customer Address (integrated Google Maps)
+* Update Order Status (Picked Up, Out for Delivery, Delivered, Paid)
+* Profile Management (contact details, availability)
 
-## What's inside?
+4. Admin Panel (Next.js - Web Dashboard)
+Key Features:
+* Admin Login
+* Seller Management (approve/reject seller applications, remove sellers)
+* Delivery Boy Management (add/remove delivery personnel, assign to sellers)
+* View All Sellers’ Data (orders, customers, revenue, performance)
+* Order Monitoring (track all orders across all sellers)
+* Financial Overview (platform-wide sales and earnings)
+* User Role & Permissions Management (manage access control)
+* Platform Analytics & Metrics (sales trends, user engagement)
+* Reports & Data Export (generate reports for analysis)
 
-This Turborepo includes the following packages/apps:
+Tech Stack
+Frontend:
+* Customer & Delivery Boy Panels: React Native (Expo)
+* Seller & Admin Panels: Next.js (React)
+Backend:
+* Framework: Node.js (Express.js)
+* Database: MongoDB (NoSQL)
+* Storage: Azure Blob Storage (for images, invoices, etc.)
+* Authentication: Firebase Auth / JWT-based authentication
+* Notifications: Firebase Cloud Messaging (FCM) for mobile apps
+Integrations:
+* Maps & Navigation: Google Maps API for delivery tracking
 
-### Apps and Packages
-
-- `docs`: a [Next.js](https://nextjs.org/) app
-- `web`: another [Next.js](https://nextjs.org/) app
-- `@repo/ui`: a stub React component library shared by both `web` and `docs` applications
-- `@repo/eslint-config`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `@repo/typescript-config`: `tsconfig.json`s used throughout the monorepo
-
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
-
-### Build
-
-To build all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm build
-```
-
-### Develop
-
-To develop all apps and packages, run the following command:
-
-```
-cd my-turborepo
-pnpm dev
-```
-
-### Remote Caching
-
-> [!TIP]
-> Vercel Remote Cache is free for all plans. Get started today at [vercel.com](https://vercel.com/signup?/signup?utm_source=remote-cache-sdk&utm_campaign=free_remote_cache).
-
-Turborepo can use a technique known as [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching) to share cache artifacts across machines, enabling you to share build caches with your team and CI/CD pipelines.
-
-By default, Turborepo will cache locally. To enable Remote Caching you will need an account with Vercel. If you don't have an account you can [create one](https://vercel.com/signup?utm_source=turborepo-examples), then enter the following commands:
-
-```
-cd my-turborepo
-npx turbo login
-```
-
-This will authenticate the Turborepo CLI with your [Vercel account](https://vercel.com/docs/concepts/personal-accounts/overview).
-
-Next, you can link your Turborepo to your Remote Cache by running the following command from the root of your Turborepo:
-
-```
-npx turbo link
-```
-
-## Useful Links
-
-Learn more about the power of Turborepo:
-
-- [Tasks](https://turbo.build/repo/docs/core-concepts/monorepos/running-tasks)
-- [Caching](https://turbo.build/repo/docs/core-concepts/caching)
-- [Remote Caching](https://turbo.build/repo/docs/core-concepts/remote-caching)
-- [Filtering](https://turbo.build/repo/docs/core-concepts/monorepos/filtering)
-- [Configuration Options](https://turbo.build/repo/docs/reference/configuration)
-- [CLI Usage](https://turbo.build/repo/docs/reference/command-line-reference)
+Business Workflow
+1. Admin onboards sellers → Admin adds and manages sellers.
+2. Seller manages store → Adds products, handles inventory, and assigns delivery personnel.
+3. Customers place orders → Orders go to the seller for processing.
+4. Seller assigns order to delivery boy → Delivery person gets an alert.
+5. Delivery boy delivers the order → Updates status after pickup/delivery.
+6. Admin monitors the entire system → Manages platform performance, earnings, and compliance.
