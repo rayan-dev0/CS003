@@ -1,4 +1,4 @@
-CS003 - Muaz Hasan P
+### CS003 - Muaz Hasan P
 
 E-Commerce Platform Overview
 A multi-role e-commerce platform, catering to four distinct user roles: Customer, Seller, Delivery Boy, and Admin. The system is designed to be scalable, with a cross-platform mobile app for Customers and Delivery Boys (React Expo) and web dashboards for Sellers and Admins (Next.js). MongoDB serves as the database, and Azure Blob Storage is used for storing files and media.
