@@ -1,6 +1,6 @@
 import "./globals.css";
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+const RootLayout = ({  children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <html lang="en">
       <body>
@@ -9,3 +9,5 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     </html>
   );
 }
+
+export default RootLayout;

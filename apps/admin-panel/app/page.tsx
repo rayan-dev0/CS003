@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Home = () => {
+const Dashboard: React.FC = () => {
   return (
     <div>
-      Admin Panel
+      Admin Dashboard
     </div>
   )
 }
 
-export default Home;
+export default Dashboard;

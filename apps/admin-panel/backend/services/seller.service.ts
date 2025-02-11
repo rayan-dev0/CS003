@@ -1,6 +1,5 @@
-import { connectDatabase } from './../../../../packages/server/src/db';
 import { z } from "zod";
-import SellerModel from "../schemas/seller.schema";
+import SellerModel from "../models/seller.model";
 
 const sellerValidation = z.object({
     username: z.string().min(2, "Username must contain minimum 2 letters"),
@@ -14,7 +13,6 @@ const sellerValidation = z.object({
 
 export const addNewSeller = async (sellerData: z.infer<typeof sellerValidation>) => {
     try {
-        connectDatabase();
         const { email } = sellerData;
         const existingSeller = await SellerModel.findOne({ email });
         if(existingSeller) return { success: false, message: "Seller already exists" };
@@ -34,8 +32,7 @@ export const addNewSeller = async (sellerData: z.infer<typeof sellerValidation>)
 
 export const removeSeller = async (sellerId: string | null) => {
     try {
-        connectDatabase();
-        const existingSeller = await SellerModel.findOne({ sellerId });
+        const existingSeller = await SellerModel.findOne({ _id: sellerId });
         if(!existingSeller) return { success: false, message: "Seller does not exists" };
 
         await SellerModel.findByIdAndDelete(sellerId);

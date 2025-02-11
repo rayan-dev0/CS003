@@ -1,5 +1,5 @@
 {
-  "name": "CS003",
+  "name": "cs003",
   "private": true,
   "scripts": {
     "build": "turbo build",
