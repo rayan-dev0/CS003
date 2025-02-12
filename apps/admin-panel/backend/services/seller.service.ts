@@ -11,8 +11,6 @@ const sellerValidation = z.object({
     phoneNumber: z.string().length(10, "Phone number must contain 10 digits").optional(),
 });
 
-const updateSellerValidation = sellerValidation.partial(); 
-
 export const addNewSeller = async (sellerData: z.infer<typeof sellerValidation>) => {
     try {
         const result = sellerValidation.safeParse(sellerData);
@@ -37,6 +35,8 @@ export const getAllSellers = async () => {
         return { success: false, error: "Internal server error" };
     }
 };
+
+const updateSellerValidation = sellerValidation.partial(); 
 
 export const updateSellerData = async (sellerId: string, sellerData: z.infer<typeof updateSellerValidation>) => {
     try {
