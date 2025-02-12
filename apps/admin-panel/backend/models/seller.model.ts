@@ -1,4 +1,4 @@
-import { model, Schema } from "mongoose";
+import { model, models, Schema } from "mongoose";
 
 const SellerSchema = new Schema({
     username: { type: String, required: true },
@@ -11,5 +11,5 @@ const SellerSchema = new Schema({
     createdAt: { type: Date, default: Date.now },
 });
 
-const SellerModel = model("seller", SellerSchema);
+const SellerModel = models.seller || model("seller", SellerSchema);
 export default SellerModel;

@@ -2,48 +2,64 @@ import { z } from "zod";
 import SellerModel from "../models/seller.model";
 
 const sellerValidation = z.object({
-    username: z.string().min(2, "Username must contain minimum 2 letters"),
+    username: z.string().min(2, "Username must contain at least 2 letters"),
     email: z.string().email("Invalid email format"),
-    password: z.string().min(6, "Password must be 6 characters long"),
-    businessName: z.string().min(5, "Business name must contain minimum 5 letters"),
+    password: z.string().min(6, "Password must be at least 6 characters long"),
+    businessName: z.string().min(5, "Business name must contain at least 5 letters"),
     businessType: z.enum(["Retail", "Wholesale", "Manufacturer", "Service", "Product", "Consultancy"]),
-    businessAddress: z.string().min(5, "Address must contain minimum 5 letters"), 
-    phoneNumber: z.string().length(10, "Phone number contain 10 digits").optional()
+    businessAddress: z.string().min(5, "Address must contain at least 5 letters"),
+    phoneNumber: z.string().length(10, "Phone number must contain 10 digits").optional(),
 });
+
+const updateSellerValidation = sellerValidation.partial(); 
 
 export const addNewSeller = async (sellerData: z.infer<typeof sellerValidation>) => {
     try {
-        const { email } = sellerData;
-        const existingSeller = await SellerModel.findOne({ email });
-        if(existingSeller) return { success: false, message: "Seller already exists" };
+        const result = sellerValidation.safeParse(sellerData);
+        if (!result.success) return { success: false, error: result.error.format() };
 
-        await SellerModel.create(sellerData);
-        return {
-            success: true,
-            message: "Added seller successfully"
+        if (await SellerModel.exists({ email: result.data.email })) {
+            return { success: false, message: "Seller already exists" };
         }
-    } catch (error) {
-        return {
-            success: false,
-            error: "Internal server error"
-        }
+
+        await SellerModel.create(result.data);
+        return { success: true, message: "Seller added successfully" };
+    } catch {
+        return { success: false, error: "Internal server error" };
     }
-}
+};
 
-export const removeSeller = async (sellerId: string | null) => {
+export const getAllSellers = async () => {
     try {
-        const existingSeller = await SellerModel.findOne({ _id: sellerId });
-        if(!existingSeller) return { success: false, message: "Seller does not exists" };
+        const sellers = await SellerModel.find();
+        return { success: true, sellers };
+    } catch {
+        return { success: false, error: "Internal server error" };
+    }
+};
+
+export const updateSellerData = async (sellerId: string, sellerData: z.infer<typeof updateSellerValidation>) => {
+    try {
+        const existingSeller = await SellerModel.findById(sellerId);
+        if (!existingSeller) return { success: false, message: "Seller does not exist" };
+
+        const result = updateSellerValidation.safeParse(sellerData);
+        if (!result.success) return { success: false, error: result.error.format() };
+
+        await SellerModel.findByIdAndUpdate(sellerId, { $set: result.data }, { new: true });
+        return { success: true, message: "Seller updated successfully" };
+    } catch {
+        return { success: false, error: "Internal server error" };
+    }
+};
+
+export const removeSeller = async (sellerId: string) => {
+    try {
+        if (!(await SellerModel.findById(sellerId))) return { success: false, message: "Seller does not exist" };
 
         await SellerModel.findByIdAndDelete(sellerId);
-        return {
-            success: true,
-            message: "Seller deleted successfully"
-        }
-    } catch (error) {
-        return {
-            success: false,
-            error: "Internal server error"
-        }
+        return { success: true, message: "Seller deleted successfully" };
+    } catch {
+        return { success: false, error: "Internal server error" };
     }
-}
+};
