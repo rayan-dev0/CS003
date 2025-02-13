@@ -1,4 +1,4 @@
-import connectDatabase from "@/backend/db";
+import connectDatabase from "@/backend/utils/db";
 import { addNewSeller, getAllSellers, updateSellerData, removeSeller } from "@/backend/services/seller.service";
 import { NextRequest, NextResponse } from "next/server";
 
