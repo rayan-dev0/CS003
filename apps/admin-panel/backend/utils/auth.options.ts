@@ -20,7 +20,7 @@ export const authOptions: NextAuthOptions = {
                 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
 
                 if (credentials.username === ADMIN_USER && credentials.password === ADMIN_PASSWORD) {
-                    return { id: "1", name: ADMIN_USER, role: "Admin" };
+                    return { id: process.env.AUTH_SECRET as string, name: ADMIN_USER, role: "Admin" };
                 } else {
                     return null;
                 }

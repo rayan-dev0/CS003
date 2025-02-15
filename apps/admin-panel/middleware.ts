@@ -1,31 +1,31 @@
-import { withAuth } from "next-auth/middleware";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { auth } from "./auth";
 
-export default withAuth(
-  function middleware(req) {
-    console.log("Middleware running for:", req.nextUrl.pathname);
-    const isAuthenticated = !!req.nextauth.token;
-    console.log("Is authenticated:", isAuthenticated);
+interface AuthNextRequest extends NextRequest {
+  auth?: object | null
+}
 
-    // Allow access to the login page even if not authenticated
-    if (!isAuthenticated) {
+export default auth((req: AuthNextRequest) => {
+  const { nextUrl } = req;
+  const isLoggedIn = !!req.auth;
 
-      console.log("Redirecting unauthenticated user to /login");
-      return NextResponse.redirect(new URL("/login", req.nextUrl));
-    }
+  if(nextUrl.pathname.startsWith("/api/auth")) return NextResponse.next();
 
-    // Prevent logged-in users from accessing the login page
-    if (isAuthenticated && req.nextUrl.pathname === "/login") {
-      console.log("Redirecting authenticated user from /login to /");
-      return NextResponse.redirect(new URL("/", req.nextUrl));
-    }
-  },
-  {
-    callbacks: { authorized: ({ token }) => !!token },
+  if(nextUrl.pathname.startsWith("/api")) {
+    const adminKey = req.headers.get('adminKey');
+    if(!adminKey || adminKey !== `Bearer-${process.env.AUTH_SECRET}`) return NextResponse.json({ success: false, error: "Unauthorised"}, { status: 401 });
+    return NextResponse.next();
   }
-);
 
-// Ensure middleware applies to all relevant routes
+  if(isLoggedIn && nextUrl.pathname === "/login") return NextResponse.redirect(new URL("/", nextUrl));
+  if (!isLoggedIn && nextUrl.pathname !== "/login") return NextResponse.redirect(new URL("/login", nextUrl));
+
+  return NextResponse.next();
+});
+
 export const config = {
-  matcher: ["/((?!api/auth|_next/static|_next/image|favicon.ico).*)"],
-};
+  matcher: [
+    "/((?!_next|[^?]*\\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest)).*)",
+    "/(api|trpc)(.*)",
+  ]
+}

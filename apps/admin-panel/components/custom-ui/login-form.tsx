@@ -35,15 +35,10 @@ const LoginForm: React.FC = () => {
             const loginData = await signIn('credentials', {
                 username: values.username,
                 password: values.password,
-                redirect: false
+                redirectTo: "/"
             });
-            if(loginData?.error) {
-                console.log("Login failed");
-            } else {
-                router.push('/')
-            }
         } catch (error) {
-            console.error("Login failed" + error);
+            console.error("Invalid Credentials" + error);
         }
     }
 

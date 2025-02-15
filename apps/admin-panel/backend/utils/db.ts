@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
-const MONGODB_URI = process.env.NEXT_PUBLIC_MONGODB_URI || "mongodb+srv://muazpbt:lMLxGHpdRq773vME@ecommerce-cluster.d7abr.mongodb.net";
+const MONGODB_URI = process.env.MONGODB_URI;
 
 const connectDatabase = () => {
     try {
-        mongoose.connect(MONGODB_URI).then(() => {
+        mongoose.connect(MONGODB_URI as string).then(() => {
             console.log("MongoDB Connected!");
         })
     } catch (error) {

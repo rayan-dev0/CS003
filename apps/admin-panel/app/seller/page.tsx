@@ -1,20 +1,23 @@
-"use client";
+import { auth, signOut } from '@/auth'
+import React from 'react'
 
-// import { authOptions } from "@/backend/utils/auth";
-// import { getServerSession } from "next-auth";
-import { signOut, useSession } from "next-auth/react";
+const Seller = async () => {
 
-export default function Sellers() {
-  // const session = await getServerSession(authOptions); 
-  const session = useSession()
+  const session = await auth()
 
   return (
     <div>
-      <h1>Seller Page</h1>
-      <h2>Welcome, {session.data?.user?.name}</h2>
-      <button onClick={() => signOut({ redirect: false })}>
-        Logout
-      </button>
+      {JSON.stringify(session)}
+      <form action={async () => {
+        "use server";
+        await signOut();
+      }}>
+        <button type='submit'>
+          Signout
+        </button>
+      </form>
     </div>
-  );
+  )
 }
+
+export default Seller
