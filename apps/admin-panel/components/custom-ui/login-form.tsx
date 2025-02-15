@@ -41,49 +41,60 @@ const LoginForm: React.FC = () => {
     }
 
     return (
-        <Form { ...form}>
-            <form onSubmit={form.handleSubmit(onLogin)}>
-                <FormDescription>
-                    Admin Login
-                </FormDescription>
-                <FormField
-                    control={form.control}
-                    name='username'
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormControl>
-                                <Input type='text' placeholder='Username' {...field} />
-                            </FormControl>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <FormField
-                    control={form.control}
-                    name='password'
-                    render={({ field }) => (
-                        <FormItem>
-                            <FormControl>
-                                <Input type={viewPassword ? 'password': 'text'} placeholder='Password' {...field} />
-                            </FormControl>
-                            <Button type='button' onClick={(e) => {e.stopPropagation(); setViewPassword(!viewPassword)}}>
-                                {
-                                    viewPassword ? (
-                                        <FaEyeSlash />
-                                    ) : (
-                                        <FaEye />
-                                    )
-                                }
-                            </Button>
-                            <FormMessage />
-                        </FormItem>
-                    )}
-                />
-                <Button type='submit'>
-                    Login
-                </Button>
-            </form>
-        </Form>
+        <div className='flex justify-center items-center mt-[20rem]'>
+            <Form {...form}>
+                <form onSubmit={form.handleSubmit(onLogin)}>
+                    <p className='text-3xl'>Admin Login</p>
+                    <div className='my-5'>
+
+                        <FormDescription>
+                            Log in to unlock and know more about your users
+                        </FormDescription>
+                    </div>
+                    <FormField
+                        control={form.control}
+                        name='username'
+                        render={({ field }: { field: any }) => (
+                            <FormItem>
+                                <label htmlFor="">Username</label>
+                                <FormControl>
+                                    <Input className='mt-2 w-[20rem]' type='text' placeholder='Username' {...field} />
+                                </FormControl>
+                                <FormMessage />
+                            </FormItem>
+                        )}
+                    />
+
+                    <FormField
+                        control={form.control}
+                        name='password'
+                        render={({ field }) => (
+                            <FormItem className='mt-4'>
+                                <label htmlFor="">Password</label>
+                                <div className='flex items-center'>
+                                    <FormControl>
+                                        <Input className=' w-[20rem]' type={viewPassword ? 'password' : 'text'} placeholder='Password' {...field} />
+                                    </FormControl>
+                                    <Button type='button' className='ml-2 ' variant="ghost" onClick={(e) => { e.stopPropagation(); setViewPassword(!viewPassword) }}>
+                                        {
+                                            viewPassword ? (
+                                                <FaEyeSlash />
+                                            ) : (
+                                                <FaEye />
+                                            )
+                                        }
+                                    </Button>
+                                    <FormMessage />
+                                </div>
+                            </FormItem>
+                        )}
+                    />
+                    <Button type='submit' className='mt-8 w-[20rem] text-md font-semibold'>
+                        Login
+                    </Button>
+                </form>
+            </Form>
+        </div>
     )
 }
 
