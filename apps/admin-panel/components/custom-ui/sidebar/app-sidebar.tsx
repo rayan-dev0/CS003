@@ -1,46 +1,36 @@
 "use client";
 
 import React from "react";
-import { AudioWaveform, BookOpen, Bot,Command, Frame, GalleryVerticalEnd, Map, PieChart, Settings2, SquareTerminal } from "lucide-react";
+import { AudioWaveform, BookOpen, Bot,Command, GalleryVerticalEnd, Settings2, SquareTerminal } from "lucide-react";
 import { NavMain } from "./nav-main";
-import { NavProjects } from "./nav-projects";
 import { NavUser } from "./nav-user";
-import { TeamSwitcher } from "./team-switcher";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail, SidebarTrigger } from "@/components/ui/sidebar";
+import { CustomSidebarTrigger } from "./sidebar-trigger";
 
 const data = {
+
   user: {
     name: "Muaz Hasan P",
     email: "muazpbt@gmail.com",
     avatar: "MH",
   },
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
-  ],
+
   navMain: [
     {
+      title: "Dashboard",
+      url: "/seller",
+      icon: SquareTerminal,
+      isActive: true
+    },
+    {
       title: "Sellers",
-      url: "/sellers",
+      url: "/seller",
       icon: SquareTerminal,
       isActive: true,
       items: [
         {
           title: "Add New Seller",
-          url: "/",
+          url: "/seller",
         },
         {
           title: "Starred",
@@ -117,35 +107,17 @@ const data = {
         },
       ],
     },
-  ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
+  ]
 }
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <SidebarTrigger />
-        <TeamSwitcher teams={data.teams} />
+        <CustomSidebarTrigger />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
