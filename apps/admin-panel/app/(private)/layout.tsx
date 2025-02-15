@@ -3,14 +3,10 @@ import { AppSidebar } from "@/components/custom-ui/sidebar/app-sidebar";
 
 const RootLayout = ({  children }: Readonly<{ children: React.ReactNode }>) => {
   return (
-    <html lang="en">
-      <body>
-          <SidebarProvider>
-            <AppSidebar />
-            {children}
-          </SidebarProvider>
-      </body>
-    </html>
+    <SidebarProvider>
+      <AppSidebar />
+      {children}
+    </SidebarProvider>
   );
 }
 

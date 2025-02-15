@@ -29,7 +29,7 @@ export const addNewSeller = async (sellerData: z.infer<typeof sellerValidation>)
 
 export const getAllSellers = async () => {
     try {
-        const sellers = await SellerModel.find();
+        const sellers = await SellerModel.find().select("-password");
         return { success: true, sellers };
     } catch {
         return { success: false, error: "Internal server error" };

@@ -1,11 +1,11 @@
 "use client";
 
 import React from "react";
-import { AudioWaveform, BookOpen, Bot,Command, GalleryVerticalEnd, Settings2, SquareTerminal } from "lucide-react";
+import { ChartPie, Handshake, LayoutDashboard, Settings, Truck } from "lucide-react";
+import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from "@/components/ui/sidebar";
+import { CustomSidebarTrigger } from "./sidebar-trigger";
 import { NavMain } from "./nav-main";
 import { NavUser } from "./nav-user";
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail, SidebarTrigger } from "@/components/ui/sidebar";
-import { CustomSidebarTrigger } from "./sidebar-trigger";
 
 const data = {
 
@@ -18,94 +18,31 @@ const data = {
   navMain: [
     {
       title: "Dashboard",
-      url: "/seller",
-      icon: SquareTerminal,
+      url: "/dashboard",
+      icon: LayoutDashboard,
       isActive: true
     },
     {
       title: "Sellers",
       url: "/seller",
-      icon: SquareTerminal,
+      icon: Handshake,
       isActive: true,
-      items: [
-        {
-          title: "Add New Seller",
-          url: "/seller",
-        },
-        {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
-        },
-      ],
     },
     {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
+      title: "Delivery Boys",
+      url: "/delivery-boys",
+      icon: Truck,
+      isActive: true,
     },
     {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
+      title: "Analytics",
+      url: "/analytics",
+      icon: ChartPie,
     },
     {
       title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
+      url: "/settings",
+      icon: Settings,
     },
   ]
 }
