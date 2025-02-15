@@ -3,16 +3,16 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from '../ui/form';
-import { Input } from '../ui/input';
-import { Button } from '../ui/button';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from '../../ui/form';
+import { Input } from '../../ui/input';
+import { Button } from '../../ui/button';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { z } from 'zod';
 import { signIn } from 'next-auth/react';
 
 const formValidation = z.object({
-    username: z.string().min(2, "Username must atleast be 2 chars long"),
-    password: z.string().min(6, "Password must be atleast 6 chars long")
+    username: z.string().min(2, "Username is required"),
+    password: z.string().min(6, "Password is required")
 });
 
 
@@ -30,7 +30,7 @@ const LoginForm: React.FC = () => {
 
     const onLogin = async (values: z.infer<typeof formValidation>) => {
         try {
-            const loginData = await signIn('credentials', {
+            await signIn('credentials', {
                 username: values.username,
                 password: values.password,
                 redirectTo: "/dashboard"
@@ -41,12 +41,11 @@ const LoginForm: React.FC = () => {
     }
 
     return (
-        <div className='flex justify-center items-center mt-[20rem]'>
+        <div className='flex justify-center items-center h-screen'>
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onLogin)}>
                     <p className='text-3xl'>Admin Login</p>
                     <div className='my-5'>
-
                         <FormDescription>
                             Log in to unlock and know more about your users
                         </FormDescription>
@@ -64,7 +63,6 @@ const LoginForm: React.FC = () => {
                             </FormItem>
                         )}
                     />
-
                     <FormField
                         control={form.control}
                         name='password'
@@ -73,7 +71,7 @@ const LoginForm: React.FC = () => {
                                 <label htmlFor="">Password</label>
                                 <div className='flex items-center'>
                                     <FormControl>
-                                        <Input className=' w-[20rem]' type={viewPassword ? 'password' : 'text'} placeholder='Password' {...field} />
+                                        <Input className=' w-[20rem]' type={viewPassword ? 'text' : 'password'} placeholder='Password' {...field} />
                                     </FormControl>
                                     <Button type='button' className='ml-2 ' variant="ghost" onClick={(e) => { e.stopPropagation(); setViewPassword(!viewPassword) }}>
                                         {
@@ -84,8 +82,8 @@ const LoginForm: React.FC = () => {
                                             )
                                         }
                                     </Button>
-                                    <FormMessage />
                                 </div>
+                                <FormMessage />
                             </FormItem>
                         )}
                     />
