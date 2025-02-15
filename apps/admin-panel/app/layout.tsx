@@ -1,6 +1,6 @@
 import "./globals.css";
 
-const RootLayout = ({  children }: Readonly<{ children: React.ReactNode }>) => {
+const AuthLayout = ({  children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <html lang="en">
       <body>
@@ -10,4 +10,4 @@ const RootLayout = ({  children }: Readonly<{ children: React.ReactNode }>) => {
   );
 }
 
-export default RootLayout;
+export default AuthLayout;

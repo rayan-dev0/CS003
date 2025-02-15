@@ -1,5 +1,5 @@
-import { auth, signOut } from '@/auth'
-import React from 'react'
+import { auth, signOut } from '@/auth';
+import React from 'react';
 
 const Seller = async () => {
 
@@ -20,4 +20,4 @@ const Seller = async () => {
   )
 }
 
-export default Seller
+export default Seller;

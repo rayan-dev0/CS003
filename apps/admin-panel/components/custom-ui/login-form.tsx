@@ -9,7 +9,6 @@ import { Button } from '../ui/button';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { z } from 'zod';
 import { signIn } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 
 const formValidation = z.object({
     username: z.string().min(2, "Username must atleast be 2 chars long"),
@@ -20,7 +19,6 @@ const formValidation = z.object({
 const LoginForm: React.FC = () => {
 
     const [viewPassword, setViewPassword] = useState<boolean>(false);
-    const router = useRouter();
 
     const form = useForm<z.infer<typeof formValidation>>({
         resolver: zodResolver(formValidation),
@@ -35,7 +33,7 @@ const LoginForm: React.FC = () => {
             const loginData = await signIn('credentials', {
                 username: values.username,
                 password: values.password,
-                redirectTo: "/"
+                redirectTo: "/dashboard"
             });
         } catch (error) {
             console.error("Invalid Credentials" + error);

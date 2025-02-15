@@ -17,8 +17,8 @@ export default auth((req: AuthNextRequest) => {
     return NextResponse.next();
   }
 
-  if(isLoggedIn && nextUrl.pathname === "/login") return NextResponse.redirect(new URL("/", nextUrl));
-  if (!isLoggedIn && nextUrl.pathname !== "/login") return NextResponse.redirect(new URL("/login", nextUrl));
+  if(isLoggedIn && nextUrl.pathname === "/") return NextResponse.redirect(new URL("/dashboard", nextUrl));
+  if (!isLoggedIn && nextUrl.pathname !== "/") return NextResponse.redirect(new URL("/", nextUrl));
 
   return NextResponse.next();
 });

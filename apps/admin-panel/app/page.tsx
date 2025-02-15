@@ -1,16 +1,10 @@
-import { auth } from '@/auth';
+import LoginForm from '@/components/custom-ui/login-form';
 import React from 'react';
 
-const Dashboard: React.FC = async () => {
-
-  const session = await auth();
-
-  return (
-    <div>
-      <h1>Admin Dashboard Page</h1>
-      <h2>Welcome, {session?.user?.name}</h2>
-    </div>
-  )
+const Login: React.FC = async () => {
+    return (
+        <LoginForm />
+    )
 }
 
-export default Dashboard;
+export default Login;
