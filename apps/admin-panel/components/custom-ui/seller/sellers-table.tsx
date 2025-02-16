@@ -5,6 +5,8 @@ import { columns } from './columns';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import NewSellerDialog from './NewSellerDialog';
+import { SessionProvider } from 'next-auth/react';
+import { toast } from '@/hooks/use-toast';
 
 type SellerType = {
     id: string,
@@ -35,18 +37,21 @@ const SellersTable = async () => {
 
     return (
         <div>
-            <div>
-                <NewSellerDialog />
+            <div className='m-5 flex justify-end'>
+
+                <SessionProvider>
+                    <NewSellerDialog />
+                </SessionProvider>
             </div>
             <div className="rounded-md border w-[90rem] m-10">
-                <DataTable 
+                <DataTable
                     data={sellers.map((seller) => ({
                         id: seller.id,
                         username: seller.username,
                         email: seller.email,
                         businessName: seller.businessName
-                    }))} 
-                    columns={columns} 
+                    }))}
+                    columns={columns}
                 />
             </div>
         </div>
