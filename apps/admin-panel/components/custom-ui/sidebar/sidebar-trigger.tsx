@@ -5,13 +5,12 @@ import { ChevronsLeft } from "lucide-react";
 import { useRef } from "react";
 
 export function CustomSidebarTrigger() {
-
     const triggerRef = useRef<HTMLButtonElement | null>(null);
 
     return (
         <SidebarMenu>
-            <SidebarMenuItem onClick={() => triggerRef.current?.click()}>
-                <SidebarMenuButton size="lg" className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
+            <SidebarMenuItem>
+                <div className="flex w-full items-center gap-2 p-2">
                     <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                         <SidebarTrigger ref={triggerRef} />
                     </div>
@@ -24,7 +23,7 @@ export function CustomSidebarTrigger() {
                         </span>
                     </div>
                     <ChevronsLeft className="ml-auto" />
-                </SidebarMenuButton>
+                </div>
             </SidebarMenuItem>
         </SidebarMenu>
     );

@@ -3,6 +3,8 @@ import axios from 'axios';
 import { DataTable } from './data-table';
 import { columns } from './columns';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import NewSellerDialog from './NewSellerDialog';
 
 type SellerType = {
     id: string,
@@ -31,18 +33,24 @@ const fetchSellers = async (): Promise<SellerType[]> => {
 const SellersTable = async () => {
     const sellers: SellerType[] = await fetchSellers();
 
-    return (<div>
-
-        <div className="rounded-md border w-[90rem] m-10">
-            <DataTable data={sellers.map((seller) => ({
-                id: seller.id,
-                username: seller.username,
-                email: seller.email,
-                businessName: seller.businessName
-            }))} columns={columns} />
+    return (
+        <div>
+            <div>
+                <NewSellerDialog />
+            </div>
+            <div className="rounded-md border w-[90rem] m-10">
+                <DataTable 
+                    data={sellers.map((seller) => ({
+                        id: seller.id,
+                        username: seller.username,
+                        email: seller.email,
+                        businessName: seller.businessName
+                    }))} 
+                    columns={columns} 
+                />
+            </div>
         </div>
-    </div>
-    )
+    );
 }
 
 export default SellersTable;
