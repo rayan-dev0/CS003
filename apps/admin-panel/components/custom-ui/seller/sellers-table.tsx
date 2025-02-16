@@ -1,7 +1,11 @@
 import React from 'react';
 import axios from 'axios';
+import { DataTable } from './data-table';
+import { columns } from './columns';
+import { Input } from '@/components/ui/input';
 
 type SellerType = {
+    id: string,
     username: string,
     email: string,
     phoneNumber: string,
@@ -27,21 +31,17 @@ const fetchSellers = async (): Promise<SellerType[]> => {
 const SellersTable = async () => {
     const sellers: SellerType[] = await fetchSellers();
 
-    return (
-        <div>
-            <h2>Sellers List</h2>
-            <ul>
-                {sellers.length > 0 ? (
-                    sellers.map((seller, index) => (
-                        <li key={index}>
-                            {seller.username} - {seller.businessName}
-                        </li>
-                    ))
-                ) : (
-                    <p>No sellers found.</p>
-                )}
-            </ul>
+    return (<div>
+
+        <div className="rounded-md border w-[90rem] m-10">
+            <DataTable data={sellers.map((seller) => ({
+                id: seller.id,
+                username: seller.username,
+                email: seller.email,
+                businessName: seller.businessName
+            }))} columns={columns} />
         </div>
+    </div>
     )
 }
 
