@@ -5,17 +5,9 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import { signOut } from "next-auth/react";
-
-interface AdminType {
-  user: {
-    name: string
-    email: string
-    avatar: string
-  }
-}
+import { AdminType } from "@/lib/types";
 
 export const NavUser: React.FC<AdminType> = ({ user }) => {
-
   return (
     <SidebarMenu>
       <SidebarMenuItem>

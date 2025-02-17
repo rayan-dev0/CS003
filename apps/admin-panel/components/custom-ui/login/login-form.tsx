@@ -6,29 +6,24 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormMessage } from '../../ui/form';
 import { Input } from '../../ui/input';
 import { Button } from '../../ui/button';
-import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { z } from 'zod';
 import { signIn } from 'next-auth/react';
-
-const formValidation = z.object({
-    username: z.string().min(2, "Username is required"),
-    password: z.string().min(6, "Password is required")
-});
-
+import { loginFormValidation } from '@/lib/zod';
+import { Eye, EyeOff } from 'lucide-react';
 
 const LoginForm: React.FC = () => {
 
     const [viewPassword, setViewPassword] = useState<boolean>(false);
 
-    const form = useForm<z.infer<typeof formValidation>>({
-        resolver: zodResolver(formValidation),
+    const form = useForm<z.infer<typeof loginFormValidation>>({
+        resolver: zodResolver(loginFormValidation),
         defaultValues: {
             username: "",
             password: ""
         }
     });
 
-    const onLogin = async (values: z.infer<typeof formValidation>) => {
+    const onLogin = async (values: z.infer<typeof loginFormValidation>) => {
         try {
             await signIn('credentials', {
                 username: values.username,
@@ -76,9 +71,9 @@ const LoginForm: React.FC = () => {
                                     <Button type='button' className='ml-2 ' variant="ghost" onClick={(e) => { e.stopPropagation(); setViewPassword(!viewPassword) }}>
                                         {
                                             viewPassword ? (
-                                                <FaEyeSlash />
+                                                <EyeOff />
                                             ) : (
-                                                <FaEye />
+                                                <Eye />
                                             )
                                         }
                                     </Button>

@@ -1,7 +1,7 @@
 "use client";
 
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarTrigger } from "@/components/ui/sidebar";
-import { ChevronsLeft } from "lucide-react";
+import { ChevronsLeft, PanelsTopLeft } from "lucide-react";
 import { useRef } from "react";
 
 export function CustomSidebarTrigger() {
@@ -9,22 +9,23 @@ export function CustomSidebarTrigger() {
 
     return (
         <SidebarMenu>
-            <SidebarMenuItem>
-                <div className="flex w-full items-center gap-2 p-2">
-                    <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                        <SidebarTrigger ref={triggerRef} />
-                    </div>
-                    <div className="grid flex-1 text-left text-sm leading-tight">
+            <SidebarMenuItem onClick={() => triggerRef.current?.click()}>
+                <SidebarMenuButton size={'lg'} className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
+                    <aside className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
+                        <PanelsTopLeft size={18} />
+                    </aside>
+                    <article className="grid flex-1 text-left text-sm leading-tight">
                         <span className="truncate font-semibold">
                             Menu
                         </span>
                         <span className="truncate text-xs">
-                            Cognivos
+                            Admin
                         </span>
-                    </div>
+                    </article>
                     <ChevronsLeft className="ml-auto" />
-                </div>
+                </SidebarMenuButton>
             </SidebarMenuItem>
+            <SidebarTrigger className="hidden" ref={triggerRef} />
         </SidebarMenu>
     );
 }

@@ -1,13 +1,6 @@
-import { string, z } from "zod";
+import { z } from "zod";
 import DeliveryModel from "../models/delivery.model";
-
-const deliveryValidation = z.object({
-    username: z.string().min(2, "Username must contain minimum 2 letters"),
-    email: z.string().email("Invalid email format"),
-    password: z.string().min(6, "Password must be 6 characters long"),
-    phoneNumber: z.string().length(10, "Phone number contain 10 digits"),
-    sellers: z.array(string())
-});
+import { deliveryValidation } from "@/lib/zod";
 
 const updateDeliveryValidation = deliveryValidation.partial();
 
