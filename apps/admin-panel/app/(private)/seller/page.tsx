@@ -1,5 +1,4 @@
 import React from 'react';
-import { auth } from '@/auth';
 import AddSellerDialog from '@/components/custom-ui/seller/add-seller-dialog';
 import SellersTable from '@/components/custom-ui/seller/sellers-table';
 import { SellerType } from '@/lib/types';
@@ -22,13 +21,13 @@ const fetchSellers = async (): Promise<SellerType[]> => {
 
 const Seller = async () => {
   const sellers: SellerType[] = await fetchSellers();
-  const session = await auth();
-
+  
   return (
     <main className='w-full'>
-      <section className='flex justify-end py-4 px-8'>
-        <AddSellerDialog adminKey={session?.user?.id as string} />
+      <section className='flex justify-end py-4 px-5'>
+        <AddSellerDialog />
       </section>
+      {/* @ts-ignore */}
       <SellersTable data={sellers} columns={columns} />
     </main>
   )

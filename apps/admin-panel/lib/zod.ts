@@ -15,6 +15,8 @@ export const sellerValidation = z.object({
     phoneNumber: z.string().length(10, "Phone number must contain 10 digits").optional(),
 });
 
+export const updateSellerValidation = sellerValidation.partial();
+
 export const deliveryValidation = z.object({
     username: z.string().min(2, "Username must contain minimum 2 letters"),
     email: z.string().email("Invalid email format"),

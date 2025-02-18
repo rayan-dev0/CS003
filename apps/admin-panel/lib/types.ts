@@ -19,18 +19,17 @@ export interface NavItemsType {
 
 export interface AddSellerFormProps {
     closeRef: React.RefObject<HTMLButtonElement | null>;
-    adminKey: string
 }
 
-export type Seller = {
-    username: string
-    email: string
-    businessName: string
+export interface UpdateSellerFormProps {
+    closeRef: React.RefObject<HTMLButtonElement | null>;
+    sellerData: SellerType
 }
 
 export interface SellerType {
-    id: string,
+    _id: string,
     username: string,
+    password: string,
     email: string,
     phoneNumber?: string,
     businessName: string,
@@ -40,10 +39,14 @@ export interface SellerType {
 
 export interface SellerTableColumns {
     id: string,
+    _id: string,
     username: string,
+    password: string,
     email: string,
     businessName: string,
-    businessType: string
+    businessType: string,
+    businessAddress: string,
+    phoneNumber?: string
 }
 
 export interface SellerTableProps<TData, TValue> {

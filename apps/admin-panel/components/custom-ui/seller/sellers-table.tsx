@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useState } from 'react';
-import { SellerTableProps } from '@/lib/types';
+import { SellerTableProps, SellerType } from '@/lib/types';
 import { flexRender, getCoreRowModel, useReactTable, getPaginationRowModel, SortingState, getSortedRowModel, ColumnFiltersState, getFilteredRowModel } from "@tanstack/react-table";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from '@/components/ui/button';
 import { Input } from "@/components/ui/input";
-import { UserSearch } from 'lucide-react';
+import { Download, UserSearch } from 'lucide-react';
+import Papa from "papaparse";
 
 const SellersTable = <TData, TValue>({ data, columns }: SellerTableProps<TData, TValue>) => {
 
@@ -25,22 +26,40 @@ const SellersTable = <TData, TValue>({ data, columns }: SellerTableProps<TData, 
         state: { sorting, columnFilters }
     });
 
+    const downloadCSV = () => {
+        const csv = Papa.unparse(data);
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute("download", "sellers.csv");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
     return (
         <section className='mx-5'>
             <div className="flex w-full items-center justify-between py-4">
                 <h2 className='font-semibold text-2xl'>
                     Seller Details
                 </h2>
-                <aside className='w-[40%] relative group'>
-                    <UserSearch className='text-gray-500 absolute top-[6px] left-2 group-focus-within:text-black transition-colors' strokeWidth={1} />
-                    <Input
-                        placeholder="Search"
-                        value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
-                        onChange={(event) =>
-                            table.getColumn("email")?.setFilterValue(event.target.value)
-                        }
-                        className="max-w-sm pl-10"
-                    />
+                <aside className='flex items-center gap-1'>
+                    <div className='relative group md:w-[300px]'>
+                        <UserSearch className='text-gray-500 absolute top-[6px] left-2 group-focus-within:text-black transition-colors' strokeWidth={1} />
+                        <Input
+                            placeholder="Search"
+                            value={(table.getColumn("email")?.getFilterValue() as string) ?? ""}
+                            onChange={(event) =>
+                                table.getColumn("email")?.setFilterValue(event.target.value)
+                            }
+                            className="max-w-sm pl-10"
+                        />
+                    </div>
+                    <Button variant={'outline'} onClick={downloadCSV}>
+                        <Download />
+                        Download CSV
+                    </Button>
                 </aside>
             </div>
             <div className='rounded-md border'>

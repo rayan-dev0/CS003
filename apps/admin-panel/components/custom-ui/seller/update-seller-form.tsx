@@ -4,46 +4,47 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { sellerValidation } from '@/lib/zod';
+import { updateSellerValidation } from '@/lib/zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { CircleUserRound, Eye, EyeOff, Handshake, LockKeyhole, Mail, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import axios from 'axios';
-import { AddSellerFormProps } from '@/lib/types';
+import { UpdateSellerFormProps } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
 import { ToastAction } from '@/components/ui/toast';
 
-const AddSellerForm: React.FC<AddSellerFormProps> = ({ closeRef }) => {
+const UpdateSellerForm: React.FC<UpdateSellerFormProps> = ({ closeRef, sellerData }) => {
 
     const [viewPassword, setViewPassword] = useState<boolean>(false);
     const { toast } = useToast();
 
-    const form = useForm<z.infer<typeof sellerValidation>>({
-        resolver: zodResolver(sellerValidation),
+    const form = useForm<z.infer<typeof updateSellerValidation>>({
+        resolver: zodResolver(updateSellerValidation),
         defaultValues: {
-            username: "",
-            email: "",
-            password: "",
-            phoneNumber: "",
-            businessName: "",
-            businessAddress: "",
-            businessType: "Retail"
+            username: sellerData.username,
+            email: sellerData.email,
+            password: sellerData.password,
+            phoneNumber: sellerData.phoneNumber,
+            businessName: sellerData.businessName,
+            businessAddress: sellerData.businessAddress,
+            // @ts-ignore 
+            businessType: sellerData.businessType 
         }
     });
 
-    const createNewSeller = async (sellerData: z.infer<typeof sellerValidation>) => {
+    const updateSeller = async (newData: z.infer<typeof updateSellerValidation>) => {
         try {
-            await axios.post('http://localhost:3000/api/seller', sellerData, {
+            await axios.put(`http://localhost:3000/api/seller?sellerId=${sellerData._id}`, newData, {
                 headers: {
                     "Content-Type": "application/json",
                     "adminKey": `Bearer-O2fanmhj4m/IG5cxJHkCJpqx4mI59r5jXRqJJHOIfiE=`
                 }
             });
             toast({
-                title: "Seller Created",
-                description: "A new seller has been added to the store",
+                title: "Success",
+                description: `${newData.username}'s data was updated successfully`,
                 action: (
                     <ToastAction altText='Close'>Close</ToastAction>
                 )
@@ -53,7 +54,7 @@ const AddSellerForm: React.FC<AddSellerFormProps> = ({ closeRef }) => {
             console.error("Error posting seller data" + error);
             toast({
                 title: "Action Failed",
-                description: "Unable to add seller to store",
+                description: "Unable to updated seller's data",
                 action: (
                     <ToastAction altText='Close'>Close</ToastAction>
                 )
@@ -63,7 +64,7 @@ const AddSellerForm: React.FC<AddSellerFormProps> = ({ closeRef }) => {
 
     return (
         <Form {...form}>
-            <form className='flex flex-col gap-3' onSubmit={form.handleSubmit(createNewSeller)}>
+            <form className='flex flex-col gap-3' onSubmit={form.handleSubmit(updateSeller)}>
                 <FormField
                     control={form.control}
                     name='username'
@@ -202,11 +203,11 @@ const AddSellerForm: React.FC<AddSellerFormProps> = ({ closeRef }) => {
                     )}
                 />
                 <Button type='submit'>
-                    Create Seller
+                    Update Seller Data
                 </Button>
             </form>
         </Form>
     )
 }
 
-export default AddSellerForm;
+export default UpdateSellerForm;
