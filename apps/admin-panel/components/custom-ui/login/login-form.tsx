@@ -9,7 +9,7 @@ import { Button } from '../../ui/button';
 import { z } from 'zod';
 import { signIn } from 'next-auth/react';
 import { loginFormValidation } from '@/lib/zod';
-import { Eye, EyeOff } from 'lucide-react';
+import { CircleUserRound, Eye, EyeOff, LockKeyhole } from 'lucide-react';
 
 const LoginForm: React.FC = () => {
 
@@ -36,58 +36,63 @@ const LoginForm: React.FC = () => {
     }
 
     return (
-        <div className='flex justify-center items-center h-screen'>
-            <Form {...form}>
-                <form onSubmit={form.handleSubmit(onLogin)}>
-                    <p className='text-3xl'>Admin Login</p>
-                    <div className='my-5'>
-                        <FormDescription>
-                            Log in to unlock and know more about your users
-                        </FormDescription>
-                    </div>
-                    <FormField
-                        control={form.control}
-                        name='username'
-                        render={({ field }: { field: any }) => (
-                            <FormItem>
-                                <label htmlFor="">Username</label>
+        <Form {...form}>
+            <form onSubmit={form.handleSubmit(onLogin)} className='border px-20 py-10 rounded-lg shadow-md'>
+                <h2 className='text-3xl text-center'>Admin Login</h2>
+                <div className='my-2'>
+                    <FormDescription className='text-center'>
+                        Enter account credentials provided through your email
+                    </FormDescription>
+                </div>
+                <hr className='mb-7' />
+                <FormField
+                    control={form.control}
+                    name='username'
+                    render={({ field }: { field: any }) => (
+                        <FormItem>
+                            <label className='text-[12px]' htmlFor="username">Username</label>
+                            <FormControl>
+                                <article className="relative group">
+                                    <CircleUserRound strokeWidth={1} className="text-gray-500 absolute top-[6px] left-2 group-focus-within:text-black transition-colors" />
+                                    <Input className="pl-10 focus:ring-1 focus:ring-black" name="username" type="text" placeholder="Admin Username" {...field} />
+                                </article>
+                            </FormControl>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <FormField
+                    control={form.control}
+                    name='password'
+                    render={({ field }) => (
+                        <FormItem>
+                            <label className='text-[12px]' htmlFor="password">Password</label>
+                            <div className='relative'>
                                 <FormControl>
-                                    <Input className='mt-2 w-[20rem]' type='text' placeholder='Username' {...field} />
+                                    <article className="relative group">
+                                        <LockKeyhole strokeWidth={1} size={19} className="text-gray-500 absolute top-[8px] left-2 group-focus-within:text-black transition-colors" />
+                                        <Input className="pl-10 focus:ring-1 focus:ring-black" type={viewPassword ? 'text' : 'password'} placeholder='Admin Password' {...field} />
+                                    </article>
                                 </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <FormField
-                        control={form.control}
-                        name='password'
-                        render={({ field }) => (
-                            <FormItem className='mt-4'>
-                                <label htmlFor="">Password</label>
-                                <div className='flex items-center'>
-                                    <FormControl>
-                                        <Input className=' w-[20rem]' type={viewPassword ? 'text' : 'password'} placeholder='Password' {...field} />
-                                    </FormControl>
-                                    <Button type='button' className='ml-2 ' variant="ghost" onClick={(e) => { e.stopPropagation(); setViewPassword(!viewPassword) }}>
-                                        {
-                                            viewPassword ? (
-                                                <EyeOff />
-                                            ) : (
-                                                <Eye />
-                                            )
-                                        }
-                                    </Button>
+                                <div className='absolute right-3 cursor-pointer top-2 hover:bg-white' onClick={(e) => { e.stopPropagation(); setViewPassword(!viewPassword) }}>
+                                    {
+                                        viewPassword ? (
+                                            <EyeOff size={20} />
+                                        ) : (
+                                            <Eye size={20} />
+                                        )
+                                    }
                                 </div>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-                    <Button type='submit' className='mt-8 w-[20rem] text-md font-semibold'>
-                        Login
-                    </Button>
-                </form>
-            </Form>
-        </div>
+                            </div>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+                <Button type='submit' className='mt-8 w-full text-md font-semibold'>
+                    Login
+                </Button>
+            </form>
+        </Form>
     )
 }
 

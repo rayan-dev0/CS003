@@ -3,7 +3,9 @@ import React from 'react';
 
 const Login: React.FC = async () => {
     return (
-        <LoginForm />
+        <main className='flex flex-col items-center justify-center h-screen w-full'>
+            <LoginForm />
+        </main>
     )
 }
 
