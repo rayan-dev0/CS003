@@ -7,7 +7,7 @@ import { columns } from '@/components/custom-ui/delivery-boys/columns';
 
 const fetchDeliveryBoys = async (): Promise<DeliveryBoyType[]> => {
   try {
-      const response = await axios.get<{ success: boolean, deliveryBoys: DeliveryBoyType[] }>('http://localhost:3000/api/delivery', {
+      const response = await axios.get<{ success: boolean, deliveryBoys: DeliveryBoyType[] }>(`${process.env.NEXT_PUBLIC_BACKEND_URI}api/delivery`, {
           headers: {
             "adminKey": `Bearer-O2fanmhj4m/IG5cxJHkCJpqx4mI59r5jXRqJJHOIfiE=`
           }

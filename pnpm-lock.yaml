@@ -147,15 +147,54 @@ importers:
 
   apps/seller-panel:
     dependencies:
+      '@hookform/resolvers':
+        specifier: ^4.1.0
+        version: 4.1.0(react-hook-form@7.54.2(react@19.0.0))
+      '@radix-ui/react-label':
+        specifier: ^2.1.2
+        version: 2.1.2(@types/react-dom@19.0.3(@types/react@19.0.8))(@types/react@19.0.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@radix-ui/react-slot':
+        specifier: ^1.1.2
+        version: 1.1.2(@types/react@19.0.8)(react@19.0.0)
+      axios:
+        specifier: ^1.7.9
+        version: 1.7.9
+      class-variance-authority:
+        specifier: ^0.7.1
+        version: 0.7.1
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+      lucide-react:
+        specifier: ^0.475.0
+        version: 0.475.0(react@19.0.0)
+      mongoose:
+        specifier: ^8.10.0
+        version: 8.10.0(socks@2.8.3)
       next:
         specifier: 15.1.7
         version: 15.1.7(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      next-auth:
+        specifier: 5.0.0-beta.25
+        version: 5.0.0-beta.25(next@15.1.7(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)
       react:
         specifier: ^19.0.0
         version: 19.0.0
       react-dom:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
+      react-hook-form:
+        specifier: ^7.54.2
+        version: 7.54.2(react@19.0.0)
+      tailwind-merge:
+        specifier: ^3.0.1
+        version: 3.0.1
+      tailwindcss-animate:
+        specifier: ^1.0.7
+        version: 1.0.7(tailwindcss@3.4.17(ts-node@10.9.2(@types/node@20.17.17)(typescript@5.7.3)))
+      zod:
+        specifier: ^3.24.2
+        version: 3.24.2
     devDependencies:
       '@types/node':
         specifier: ^20
@@ -321,6 +360,11 @@ packages:
 
   '@hookform/resolvers@4.0.0':
     resolution: {integrity: sha512-93ZueVlTaeMF0pRbrLbcnzrxeb2mGA/xyO3RgfrsKs5OCtcfjoWcdjBJm+N7096Jfg/JYlGPjuyQCgqVEodSTg==}
+    peerDependencies:
+      react-hook-form: ^7.0.0
+
+  '@hookform/resolvers@4.1.0':
+    resolution: {integrity: sha512-fX/uHKb+OOCpACLc6enuTQsf0ZpRrKbeBBPETg5PCPLCIYV6osP2Bw6ezuclM61lH+wBF9eXcuC0+BFh9XOEnQ==}
     peerDependencies:
       react-hook-form: ^7.0.0
 
@@ -1105,6 +1149,9 @@ packages:
 
   caniuse-lite@1.0.30001695:
     resolution: {integrity: sha512-vHyLade6wTgI2u1ec3WQBxv+2BrTERV28UXQu9LO6lZ9pYeMk34vjXFLOxo1A4UBA8XTL4njRQZdno/yYaSmWw==}
+
+  caniuse-lite@1.0.30001700:
+    resolution: {integrity: sha512-2S6XIXwaE7K7erT8dY+kLQcpa5ms63XlRkMkReXjle+kf6c5g38vyMl+Z5y8dSxOFDhcFe+nxnn261PLxBSQsQ==}
 
   chokidar@3.6.0:
     resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}
@@ -2262,6 +2309,11 @@ snapshots:
     dependencies:
       react-hook-form: 7.54.2(react@19.0.0)
 
+  '@hookform/resolvers@4.1.0(react-hook-form@7.54.2(react@19.0.0))':
+    dependencies:
+      caniuse-lite: 1.0.30001700
+      react-hook-form: 7.54.2(react@19.0.0)
+
   '@img/sharp-darwin-arm64@0.33.5':
     optionalDependencies:
       '@img/sharp-libvips-darwin-arm64': 1.0.4
@@ -2976,6 +3028,8 @@ snapshots:
   camelcase-css@2.0.1: {}
 
   caniuse-lite@1.0.30001695: {}
+
+  caniuse-lite@1.0.30001700: {}
 
   chokidar@3.6.0:
     dependencies:

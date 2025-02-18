@@ -5,10 +5,9 @@ import axios from "axios";
 import { Trash2 } from "lucide-react";
   
 const DeleteDialog: React.FC<{ deliveryBoyId: string }> = ({ deliveryBoyId }) => {
-
     const deleteDeliveryBoy = async (deliveryBoyId: string) => {
         try {
-            await axios.delete(`http://localhost:3000/api/delivery?deliveryBoyId=${deliveryBoyId}`, {
+            await axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_URI}api/delivery?deliveryBoyId=${deliveryBoyId}`, {
                 headers: {
                     "Content-Type": "application/json",
                     "adminKey": `Bearer-O2fanmhj4m/IG5cxJHkCJpqx4mI59r5jXRqJJHOIfiE=`

@@ -52,7 +52,7 @@ const UpdateDeliveryBoyForm: React.FC<UpdateDeliveryBoyFormProps> = ({ closeRef,
 
     const updateDeliveryBoy = async (newData: z.infer<typeof deliveryValidation>) => {
         try {
-            await axios.put(`http://localhost:3000/api/seller?sellerId=${deliveryBoyData._id}`, newData, {
+            await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URI}api/seller?sellerId=${deliveryBoyData._id}`, newData, {
                 headers: {
                     "Content-Type": "application/json",
                     "adminKey": `Bearer-O2fanmhj4m/IG5cxJHkCJpqx4mI59r5jXRqJJHOIfiE=`
@@ -165,69 +165,69 @@ const UpdateDeliveryBoyForm: React.FC<UpdateDeliveryBoyFormProps> = ({ closeRef,
                         <FormItem>
                             <label className="text-[12px]" htmlFor="sellers">Assign Sellers</label>
                             <FormControl>
-                            <Select
-                                isMulti
-                                options={sellerOptions}
-                                value={sellerOptions.filter(option => field.value.includes(option.value))}
-                                onChange={(selected) => {
-                                    form.setValue("sellers", selected.map(item => item.value));
-                                }}
-                                styles={{
-                                    control: (base, state) => ({
-                                        ...base,
-                                        display: "flex",
-                                        height: "2.25rem", 
-                                        width: "100%", 
-                                        borderRadius: "0.375rem",
-                                        border: "1px solid #e5e7eb", 
-                                        backgroundColor: "transparent", 
-                                        paddingLeft: "0.75rem", 
-                                        fontSize: "1rem", 
-                                        boxShadow: state.isFocused ? "0 0 0 1px black" : "none",
-                                        transition: "all 0.2s ease",
-                                        placeholderColor: "#6b7280", 
-                                    }),
-                                    placeholder: (base) => ({
-                                        ...base,
-                                        color: "#6b7280", 
-                                    }),
-                                    multiValue: (base) => ({
-                                        ...base,
-                                        backgroundColor: "#000", 
-                                        borderRadius: "4px",
-                                        color: "white",
-                                    }),
-                                    multiValueLabel: (base) => ({
-                                        ...base,
-                                        color: "white",
-                                    }),
-                                    multiValueRemove: (base) => ({
-                                        ...base,
-                                        color: "white",
-                                        ":hover": {
+                                <Select
+                                    isMulti
+                                    options={sellerOptions}
+                                    value={sellerOptions.filter(option => field.value.includes(option.value))}
+                                    onChange={(selected) => {
+                                        form.setValue("sellers", selected.map(item => item.value));
+                                    }}
+                                    styles={{
+                                        control: (base, state) => ({
+                                            ...base,
+                                            display: "flex",
+                                            height: "2.25rem",
+                                            width: "100%",
+                                            borderRadius: "0.375rem",
+                                            border: "1px solid #e5e7eb",
+                                            backgroundColor: "transparent",
+                                            paddingLeft: "0.75rem",
+                                            fontSize: "1rem",
+                                            boxShadow: state.isFocused ? "0 0 0 1px black" : "none",
+                                            transition: "all 0.2s ease",
+                                            placeholderColor: "#6b7280",
+                                        }),
+                                        placeholder: (base) => ({
+                                            ...base,
+                                            color: "#6b7280",
+                                        }),
+                                        multiValue: (base) => ({
+                                            ...base,
                                             backgroundColor: "#000",
+                                            borderRadius: "4px",
                                             color: "white",
-                                        },
-                                    }),
-                                    menu: (base) => ({
-                                        ...base,
-                                        backgroundColor: "white",
-                                        borderRadius: "6px",
-                                        boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-                                    }),
-                                    option: (base, state) => ({
-                                        ...base,
-                                        backgroundColor: state.isSelected ? "#000" : "white",
-                                        color: state.isSelected ? "white" : "black",
-                                        padding: "10px",
-                                        cursor: "pointer",
-                                        ":hover": {
-                                            backgroundColor: "#000",
+                                        }),
+                                        multiValueLabel: (base) => ({
+                                            ...base,
                                             color: "white",
-                                        },
-                                    }),
-                                }}
-                            />
+                                        }),
+                                        multiValueRemove: (base) => ({
+                                            ...base,
+                                            color: "white",
+                                            ":hover": {
+                                                backgroundColor: "#000",
+                                                color: "white",
+                                            },
+                                        }),
+                                        menu: (base) => ({
+                                            ...base,
+                                            backgroundColor: "white",
+                                            borderRadius: "6px",
+                                            boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+                                        }),
+                                        option: (base, state) => ({
+                                            ...base,
+                                            backgroundColor: state.isSelected ? "#000" : "white",
+                                            color: state.isSelected ? "white" : "black",
+                                            padding: "10px",
+                                            cursor: "pointer",
+                                            ":hover": {
+                                                backgroundColor: "#000",
+                                                color: "white",
+                                            },
+                                        }),
+                                    }}
+                                />
                             </FormControl>
                         </FormItem>
                     )}

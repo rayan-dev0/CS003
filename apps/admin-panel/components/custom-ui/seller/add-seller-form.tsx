@@ -35,7 +35,7 @@ const AddSellerForm: React.FC<AddSellerFormProps> = ({ closeRef }) => {
 
     const createNewSeller = async (sellerData: z.infer<typeof sellerValidation>) => {
         try {
-            await axios.post('http://localhost:3000/api/seller', sellerData, {
+            await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URI}api/seller`, sellerData, {
                 headers: {
                     "Content-Type": "application/json",
                     "adminKey": `Bearer-O2fanmhj4m/IG5cxJHkCJpqx4mI59r5jXRqJJHOIfiE=`
@@ -168,7 +168,7 @@ const AddSellerForm: React.FC<AddSellerFormProps> = ({ closeRef }) => {
                                     <Select name='businessType' {...field}>
                                         <SelectTrigger className="w-full">
                                             <SelectValue placeholder="Choose Business Type" />
-                                        </SelectTrigger>  
+                                        </SelectTrigger>
                                         <SelectContent>
                                             <SelectGroup>
                                                 <SelectLabel>Business Types</SelectLabel>

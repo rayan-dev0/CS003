@@ -30,13 +30,13 @@ const UpdateSellerForm: React.FC<UpdateSellerFormProps> = ({ closeRef, sellerDat
             businessName: sellerData.businessName,
             businessAddress: sellerData.businessAddress,
             // @ts-ignore 
-            businessType: sellerData.businessType 
+            businessType: sellerData.businessType
         }
     });
 
     const updateSeller = async (newData: z.infer<typeof sellerValidation>) => {
         try {
-            await axios.put(`http://localhost:3000/api/seller?sellerId=${sellerData._id}`, newData, {
+            await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URI}api/seller?sellerId=${sellerData._id}`, newData, {
                 headers: {
                     "Content-Type": "application/json",
                     "adminKey": `Bearer-O2fanmhj4m/IG5cxJHkCJpqx4mI59r5jXRqJJHOIfiE=`
@@ -169,7 +169,7 @@ const UpdateSellerForm: React.FC<UpdateSellerFormProps> = ({ closeRef, sellerDat
                                     <Select name='businessType' {...field}>
                                         <SelectTrigger className="w-full">
                                             <SelectValue placeholder="Choose Business Type" />
-                                        </SelectTrigger>  
+                                        </SelectTrigger>
                                         <SelectContent>
                                             <SelectGroup>
                                                 <SelectLabel>Business Types</SelectLabel>
