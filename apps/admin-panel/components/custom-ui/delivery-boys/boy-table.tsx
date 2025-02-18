@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { SellerTableProps, SellerType } from '@/lib/types';
+import { DeliveryBoysTableProps } from '@/lib/types';
 import { flexRender, getCoreRowModel, useReactTable, getPaginationRowModel, SortingState, getSortedRowModel, ColumnFiltersState, getFilteredRowModel } from "@tanstack/react-table";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from '@/components/ui/button';
@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Download, UserSearch } from 'lucide-react';
 import Papa from "papaparse";
 
-const SellersTable = <TData, TValue>({ data, columns }: SellerTableProps<TData, TValue>) => {
+const DeliveryBoyTable = <TData, TValue>({ data, columns }: DeliveryBoysTableProps<TData, TValue>) => {
 
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -32,7 +32,7 @@ const SellersTable = <TData, TValue>({ data, columns }: SellerTableProps<TData, 
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.setAttribute("download", "sellers.csv");
+        link.setAttribute("download", "delivery-boys.csv");
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -42,7 +42,7 @@ const SellersTable = <TData, TValue>({ data, columns }: SellerTableProps<TData, 
         <section className='mx-5'>
             <div className="flex w-full items-center justify-between py-4">
                 <h2 className='font-semibold text-2xl'>
-                    Seller Details
+                    Delivery Boy Details
                 </h2>
                 <aside className='flex items-center gap-1'>
                     <div className='relative group md:w-[300px]'>
@@ -112,4 +112,4 @@ const SellersTable = <TData, TValue>({ data, columns }: SellerTableProps<TData, 
     );
 }
 
-export default SellersTable;
+export default DeliveryBoyTable;

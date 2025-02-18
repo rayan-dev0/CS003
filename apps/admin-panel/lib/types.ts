@@ -1,5 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { LucideIcon } from "lucide-react";
+import { Types } from "mongoose";
 
 export interface AdminType {
     user: {
@@ -54,3 +55,35 @@ export interface SellerTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
 }
 
+export interface AddDeliveryBoyProps {
+    closeRef: React.RefObject<HTMLButtonElement | null>;
+}
+
+export interface UpdateDeliveryBoyFormProps {
+    closeRef: React.RefObject<HTMLButtonElement | null>;
+    deliveryBoyData: DeliveryBoyType
+}
+
+export interface DeliveryBoyType {
+    _id: string,
+    username: string,
+    password: string,
+    email: string,
+    phoneNumber: string,
+    sellers: string[]
+};
+
+export interface DeliveryBoysTableColumns {
+    id: string,
+    _id: string,
+    username: string,
+    password: string,
+    email: string,
+    phoneNumber: string,
+    sellers: string[]
+}
+
+export interface DeliveryBoysTableProps<TData, TValue> {
+    data: TData[],
+    columns: ColumnDef<TData, TValue>[]
+};

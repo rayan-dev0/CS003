@@ -5,7 +5,7 @@ const DeliverySchema = new Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     phoneNumber: { type: String, requried: true },
-    sellers: [{ type: Types.ObjectId, ref: "seller", required: true }],
+    sellers: [{ type: String, ref: "seller", required: true }],
     createdAt: { type: Date, default: Date.now },
 });
 

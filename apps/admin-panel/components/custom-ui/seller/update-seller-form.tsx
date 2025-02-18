@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { updateSellerValidation } from '@/lib/zod';
+import { sellerValidation } from '@/lib/zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -20,8 +20,8 @@ const UpdateSellerForm: React.FC<UpdateSellerFormProps> = ({ closeRef, sellerDat
     const [viewPassword, setViewPassword] = useState<boolean>(false);
     const { toast } = useToast();
 
-    const form = useForm<z.infer<typeof updateSellerValidation>>({
-        resolver: zodResolver(updateSellerValidation),
+    const form = useForm<z.infer<typeof sellerValidation>>({
+        resolver: zodResolver(sellerValidation),
         defaultValues: {
             username: sellerData.username,
             email: sellerData.email,
@@ -34,7 +34,7 @@ const UpdateSellerForm: React.FC<UpdateSellerFormProps> = ({ closeRef, sellerDat
         }
     });
 
-    const updateSeller = async (newData: z.infer<typeof updateSellerValidation>) => {
+    const updateSeller = async (newData: z.infer<typeof sellerValidation>) => {
         try {
             await axios.put(`http://localhost:3000/api/seller?sellerId=${sellerData._id}`, newData, {
                 headers: {

@@ -17,7 +17,7 @@ export const GET = async () => {
     try {
         connectDatabase();
         const response = await getAllDeliveryBoys();
-        return NextResponse.json(response.sellers);
+        return NextResponse.json(response);
     } catch (error) {
         return NextResponse.json({ error });
     }

@@ -18,7 +18,7 @@ export const addNewDeliveryBoy = async (deliveryData: z.infer<typeof deliveryVal
     } catch (error) {
         return {
             success: false,
-            error: "Internal server error"
+            error: `Internal server error, ${error}`
         }
     }
 }
@@ -64,10 +64,10 @@ export const updateDeliveryBoyData = async (deliveryId: string, deliveryData: z.
 
 export const getAllDeliveryBoys = async () => {
     try {
-        const sellers = await DeliveryModel.find();
+        const deliveryBoys = await DeliveryModel.find();
         return {
             success: true,
-            sellers
+            deliveryBoys
         }
     } catch (error) {
         return {
