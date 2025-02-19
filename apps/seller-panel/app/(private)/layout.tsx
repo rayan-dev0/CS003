@@ -1,7 +1,14 @@
+import { AppSidebar } from "@/components/custom-ui/sidebar/app-sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
+
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   return (
     <>
-      {children}
+      <SidebarProvider>
+        <AppSidebar>
+          {children}
+        </AppSidebar>
+      </SidebarProvider>
     </>
   );
 }
