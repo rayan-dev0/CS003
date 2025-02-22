@@ -1,6 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { LucideIcon } from "lucide-react";
-import { Types } from "mongoose";
 
 export interface AdminType {
     user: {

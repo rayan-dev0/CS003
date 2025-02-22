@@ -52,10 +52,10 @@ const UpdateDeliveryBoyForm: React.FC<UpdateDeliveryBoyFormProps> = ({ closeRef,
 
     const updateDeliveryBoy = async (newData: z.infer<typeof deliveryValidation>) => {
         try {
-            await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URI}api/seller?sellerId=${deliveryBoyData._id}`, newData, {
+            await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URI}/delivery/update-agent/${deliveryBoyData._id}`, newData, {
                 headers: {
                     "Content-Type": "application/json",
-                    "adminKey": `Bearer-O2fanmhj4m/IG5cxJHkCJpqx4mI59r5jXRqJJHOIfiE=`
+                    "adminKey": `Bearer-${process.env.ADMIN_SECRET_KEY}`
                 }
             });
             toast({

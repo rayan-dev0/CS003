@@ -8,10 +8,10 @@ const DeleteDialog: React.FC<{ sellerId: string }> = ({ sellerId }) => {
 
     const deleteSeller = async (sellerId: string) => {
         try {
-            const response = await axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_URI}api/seller?sellerId=${sellerId}`, {
+            const response = await axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_URI}/seller/delete-seller/${sellerId}`, {
                 headers: {
-                    "Content-Type": "application/json",
-                    "adminKey": `Bearer-O2fanmhj4m/IG5cxJHkCJpqx4mI59r5jXRqJJHOIfiE=`
+                  "Content-Type": "application/json",
+                  "adminKey": `Bearer-${process.env.ADMIN_SECRET_KEY}`
                 }
             });
             console.log(response)

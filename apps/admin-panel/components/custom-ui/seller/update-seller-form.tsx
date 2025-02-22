@@ -36,10 +36,10 @@ const UpdateSellerForm: React.FC<UpdateSellerFormProps> = ({ closeRef, sellerDat
 
     const updateSeller = async (newData: z.infer<typeof sellerValidation>) => {
         try {
-            await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URI}api/seller?sellerId=${sellerData._id}`, newData, {
+            await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URI}/seller/update-seller/${sellerData._id}`, newData, {
                 headers: {
                     "Content-Type": "application/json",
-                    "adminKey": `Bearer-O2fanmhj4m/IG5cxJHkCJpqx4mI59r5jXRqJJHOIfiE=`
+                    "adminKey": `Bearer-${process.env.ADMIN_SECRET_KEY}`
                 }
             });
             toast({

@@ -35,10 +35,10 @@ const AddSellerForm: React.FC<AddSellerFormProps> = ({ closeRef }) => {
 
     const createNewSeller = async (sellerData: z.infer<typeof sellerValidation>) => {
         try {
-            await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URI}api/seller`, sellerData, {
+            await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URI}/seller/create-seller-account`, sellerData, {
                 headers: {
                     "Content-Type": "application/json",
-                    "adminKey": `Bearer-O2fanmhj4m/IG5cxJHkCJpqx4mI59r5jXRqJJHOIfiE=`
+                    "adminKey": `Bearer-${process.env.ADMIN_SECRET_KEY}`
                 }
             });
             toast({

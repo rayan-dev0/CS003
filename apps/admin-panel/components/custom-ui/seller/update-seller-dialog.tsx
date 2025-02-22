@@ -3,7 +3,7 @@
 import React, { useRef } from 'react';
 import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from '@/components/ui/button';
-import { FilePenLine, UserRoundPlus } from 'lucide-react';
+import { FilePenLine } from 'lucide-react';
 import UpdateSellerForm from './update-seller-form';
 import { SellerType } from '@/lib/types';
 

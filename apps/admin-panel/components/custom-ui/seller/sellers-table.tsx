@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { SellerTableProps, SellerType } from '@/lib/types';
+import { SellerTableProps } from '@/lib/types';
 import { flexRender, getCoreRowModel, useReactTable, getPaginationRowModel, SortingState, getSortedRowModel, ColumnFiltersState, getFilteredRowModel } from "@tanstack/react-table";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from '@/components/ui/button';

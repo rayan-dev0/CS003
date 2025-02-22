@@ -52,14 +52,12 @@ const AddDeliveryBoyForm: React.FC<AddDeliveryBoyProps> = ({ closeRef }) => {
 
     const createNewDeliveryBoy = async (boyData: z.infer<typeof deliveryValidation>) => {
         try {
-            console.log(boyData)
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URI}api/delivery`, boyData, {
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URI}/delivery/create-agent-account`, boyData, {
                 headers: {
                     "Content-Type": "application/json",
-                    "adminKey": `Bearer-O2fanmhj4m/IG5cxJHkCJpqx4mI59r5jXRqJJHOIfiE=`
+                    "adminKey": `Bearer-${process.env.ADMIN_SECRET_KEY}`
                 }
             });
-            console.log(res);
             toast({
                 title: "Delivery Boy Created",
                 description: "A new delivery boy has been added to the store",

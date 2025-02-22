@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { SellerTableColumns } from '@/lib/types';
 import { ColumnDef } from '@tanstack/react-table';
-import { ArrowUpDown, FilePenLine, ScanEye } from "lucide-react";
+import { ArrowUpDown, ScanEye } from "lucide-react";
 import DeleteDialog from './delete-dialog';
 import UpdateSellerDialog from './update-seller-dialog';
 import Link from 'next/link';
