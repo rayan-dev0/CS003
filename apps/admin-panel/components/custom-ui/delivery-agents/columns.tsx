@@ -1,19 +1,19 @@
 "use client";
 
 import { Button } from '@/components/ui/button';
-import { DeliveryBoysTableColumns } from '@/lib/types';
+import { DeliveryAgentsTableColumns } from '@/lib/types';
 import { ColumnDef } from '@tanstack/react-table';
-import { ArrowUpDown, FilePenLine, ScanEye } from "lucide-react";
+import { ArrowUpDown, ScanEye } from "lucide-react";
 import Link from 'next/link';
 import DeleteDialog from './delete-dialog';
-import UpdateDeliveryBoyDialog from './update-boy-dialog';
+import UpdateDeliveryAgentDialog from './update-agent-dialog';
 
-export const columns: ColumnDef<DeliveryBoysTableColumns>[] = [
+export const columns: ColumnDef<DeliveryAgentsTableColumns>[] = [
     {
         accessorKey: "username",
         header: ({ column }) => (
                 <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                    Delivery Boy Name
+                    Delivery Agent Name
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             )
@@ -22,7 +22,7 @@ export const columns: ColumnDef<DeliveryBoysTableColumns>[] = [
         accessorKey: "email",
         header: ({ column }) => (
                 <Button variant="ghost" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
-                    Delivery Boy Email
+                    Delivery Agent Email
                     <ArrowUpDown className="ml-2 h-4 w-4" />
                 </Button>
             )
@@ -40,17 +40,17 @@ export const columns: ColumnDef<DeliveryBoysTableColumns>[] = [
         id: "quickActions",
         header: "Quick Actions",
         cell: ({ row }) => {
-            const deliveryBoy = row.original;
+            const deliveryAgent = row.original;
 
             return (
                 <article className='flex items-center gap-1'>
-                    <Link href={`/delivery-boy/${deliveryBoy._id}`}>
+                    <Link href={`/delivery-agent/${deliveryAgent._id}`}>
                         <Button size={'icon'} variant={'ghost'}>
                             <ScanEye />
                         </Button>
                     </Link>
-                    <UpdateDeliveryBoyDialog deliveryBoyData={deliveryBoy} />
-                    <DeleteDialog deliveryBoyId={deliveryBoy._id} />
+                    <UpdateDeliveryAgentDialog deliveryAgentData={deliveryAgent} />
+                    <DeleteDialog deliveryAgentId={deliveryAgent._id} />
                 </article>
             )
         }

@@ -17,7 +17,7 @@ export const sellerValidation = z.object({
 
 export const updateSellerValidation = sellerValidation.partial();
 
-export const deliveryValidation = z.object({
+export const agentValidation = z.object({
     username: z.string().min(2, "Username must contain minimum 2 letters"),
     email: z.string().email("Invalid email format"),
     password: z.string().min(6, "Password must be 6 characters long"),

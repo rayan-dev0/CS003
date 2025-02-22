@@ -4,25 +4,25 @@ import { toast } from "@/hooks/use-toast";
 import axios from "axios";
 import { Trash2 } from "lucide-react";
   
-const DeleteDialog: React.FC<{ deliveryBoyId: string }> = ({ deliveryBoyId }) => {
+const DeleteDialog: React.FC<{ deliveryAgentId: string }> = ({ deliveryAgentId }) => {
   
-    const deleteDeliveryBoy = async (deliveryBoyId: string) => {
+    const deleteDeliveryAgent = async (deliveryAgentId: string) => {
         try {
-            await axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_URI}/delivery/delete-agent/${deliveryBoyId}`, {
+            await axios.delete(`${process.env.NEXT_PUBLIC_BACKEND_URI}/delivery/delete-agent/${deliveryAgentId}`, {
                 headers: {
                     "Content-Type": "application/json",
-                    "adminKey": `Bearer-${process.env.ADMIN_SECRET_KEY}`
+                    "adminKey": `Bearer-${process.env.NEXT_PUBLIC_ADMIN_SECRET_KEY}`
                 }
             });
             toast({
                 title: "Success",
-                description: "Delivery boy removed successfully",
+                description: "Delivery agent removed successfully",
             });
         } catch (error) {
             console.error("Error deleting data", error);
             toast({
                 title: "Action Failed",
-                description: "Failed to remove the delivery boy data",
+                description: "Failed to remove the delivery agent data",
                 variant: "destructive"
             });
         }
@@ -39,7 +39,7 @@ const DeleteDialog: React.FC<{ deliveryBoyId: string }> = ({ deliveryBoyId }) =>
           <AlertDialogHeader>
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete delivery boy
+              This action cannot be undone. This will permanently delete delivery agent
               account from the servers.
             </AlertDialogDescription>
           </AlertDialogHeader>
@@ -47,7 +47,7 @@ const DeleteDialog: React.FC<{ deliveryBoyId: string }> = ({ deliveryBoyId }) =>
             <AlertDialogCancel>
                 Cancel
             </AlertDialogCancel>
-            <AlertDialogAction className="bg-red-600" onClick={() => deleteDeliveryBoy(deliveryBoyId)}>
+            <AlertDialogAction className="bg-red-600" onClick={() => deleteDeliveryAgent(deliveryAgentId)}>
                 Delete
             </AlertDialogAction>
           </AlertDialogFooter>

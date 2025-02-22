@@ -4,18 +4,18 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { deliveryValidation } from '@/lib/zod';
+import { agentValidation } from '@/lib/zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { CircleUserRound, Eye, EyeOff, LockKeyhole, Mail, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import axios from 'axios';
-import { AddDeliveryBoyProps } from '@/lib/types';
+import { AddDeliveryAgentProps } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
 import { ToastAction } from '@/components/ui/toast';
 import Select from "react-select";
 
-const AddDeliveryBoyForm: React.FC<AddDeliveryBoyProps> = ({ closeRef }) => {
+const AddDeliveryAgentForm: React.FC<AddDeliveryAgentProps> = ({ closeRef }) => {
 
     const [viewPassword, setViewPassword] = useState<boolean>(false);
     const { toast } = useToast();
@@ -39,8 +39,8 @@ const AddDeliveryBoyForm: React.FC<AddDeliveryBoyProps> = ({ closeRef }) => {
         },
     ]
 
-    const form = useForm<z.infer<typeof deliveryValidation>>({
-        resolver: zodResolver(deliveryValidation),
+    const form = useForm<z.infer<typeof agentValidation>>({
+        resolver: zodResolver(agentValidation),
         defaultValues: {
             username: "",
             email: "",
@@ -50,17 +50,17 @@ const AddDeliveryBoyForm: React.FC<AddDeliveryBoyProps> = ({ closeRef }) => {
         }
     });
 
-    const createNewDeliveryBoy = async (boyData: z.infer<typeof deliveryValidation>) => {
+    const createNewDeliveryAgent = async (agentData: z.infer<typeof agentValidation>) => {
         try {
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URI}/delivery/create-agent-account`, boyData, {
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URI}/delivery/create-agent-account`, agentData, {
                 headers: {
                     "Content-Type": "application/json",
-                    "adminKey": `Bearer-${process.env.ADMIN_SECRET_KEY}`
+                    "adminKey": `Bearer-${process.env.NEXT_PUBLIC_ADMIN_SECRET_KEY}`
                 }
             });
             toast({
-                title: "Delivery Boy Created",
-                description: "A new delivery boy has been added to the store",
+                title: "Delivery Agent Created",
+                description: "A new delivery agent has been added to the store",
                 action: (
                     <ToastAction altText='Close'>Close</ToastAction>
                 )
@@ -70,7 +70,7 @@ const AddDeliveryBoyForm: React.FC<AddDeliveryBoyProps> = ({ closeRef }) => {
             console.error("Error posting seller data" + error);
             toast({
                 title: "Action Failed",
-                description: "Unable to add delivery boy to store",
+                description: "Unable to add delivery agent to store",
                 action: (
                     <ToastAction altText='Close'>Close</ToastAction>
                 )
@@ -80,7 +80,7 @@ const AddDeliveryBoyForm: React.FC<AddDeliveryBoyProps> = ({ closeRef }) => {
 
     return (
         <Form {...form}>
-            <form className='flex flex-col gap-3' onSubmit={form.handleSubmit(createNewDeliveryBoy)}>
+            <form className='flex flex-col gap-3' onSubmit={form.handleSubmit(createNewDeliveryAgent)}>
                 <FormField
                     control={form.control}
                     name='username'
@@ -90,7 +90,7 @@ const AddDeliveryBoyForm: React.FC<AddDeliveryBoyProps> = ({ closeRef }) => {
                             <FormControl>
                                 <article className="relative group">
                                     <CircleUserRound strokeWidth={1} className="text-gray-500 absolute top-[6px] left-2 group-focus-within:text-black transition-colors" />
-                                    <Input className="pl-10 focus:ring-1 focus:ring-black" name="username" type="text" placeholder="Delivery Boy Username" {...field} />
+                                    <Input className="pl-10 focus:ring-1 focus:ring-black" name="username" type="text" placeholder="Delivery Agent Username" {...field} />
                                 </article>
                             </FormControl>
                             <FormMessage />
@@ -107,7 +107,7 @@ const AddDeliveryBoyForm: React.FC<AddDeliveryBoyProps> = ({ closeRef }) => {
                                 <FormControl>
                                     <article className="relative group">
                                         <LockKeyhole strokeWidth={1} size={19} className="text-gray-500 absolute top-[8px] left-2 group-focus-within:text-black transition-colors" />
-                                        <Input className="pl-10 focus:ring-1 focus:ring-black" type={viewPassword ? 'text' : 'password'} placeholder='Delivery Boy Account Password' {...field} />
+                                        <Input className="pl-10 focus:ring-1 focus:ring-black" type={viewPassword ? 'text' : 'password'} placeholder='Delivery Agent Account Password' {...field} />
                                     </article>
                                 </FormControl>
                                 <div className='absolute right-3 cursor-pointer top-2 hover:bg-white' onClick={(e) => { e.stopPropagation(); setViewPassword(!viewPassword) }}>
@@ -134,7 +134,7 @@ const AddDeliveryBoyForm: React.FC<AddDeliveryBoyProps> = ({ closeRef }) => {
                                 <FormControl>
                                     <article className="relative group">
                                         <Mail strokeWidth={1} size={19} className="text-gray-500 absolute top-[8px] left-2 group-focus-within:text-black transition-colors" />
-                                        <Input className="pl-10 focus:ring-1 focus:ring-black" name='email' type='email' placeholder='Delivery Boy Email Address' {...field} />
+                                        <Input className="pl-10 focus:ring-1 focus:ring-black" name='email' type='email' placeholder='Delivery Agent Email Address' {...field} />
                                     </article>
                                 </FormControl>
                                 <FormMessage />
@@ -150,7 +150,7 @@ const AddDeliveryBoyForm: React.FC<AddDeliveryBoyProps> = ({ closeRef }) => {
                                 <FormControl>
                                     <article className="relative group">
                                         <Phone strokeWidth={1} size={19} className="text-gray-500 absolute top-[8px] left-2 group-focus-within:text-black transition-colors" />
-                                        <Input className="pl-10 focus:ring-1 focus:ring-black" name='phoneNumber' type='text' placeholder='Delivery Boy Phone Number' {...field} />
+                                        <Input className="pl-10 focus:ring-1 focus:ring-black" name='phoneNumber' type='text' placeholder='Delivery Agent Phone Number' {...field} />
                                     </article>
                                 </FormControl>
                                 <FormMessage />
@@ -233,11 +233,11 @@ const AddDeliveryBoyForm: React.FC<AddDeliveryBoyProps> = ({ closeRef }) => {
                     )}
                 />
                 <Button type='submit'>
-                    Create Delivery Boy
+                    Create Delivery Agent
                 </Button>
             </form>
         </Form>
     )
 }
 
-export default AddDeliveryBoyForm;
+export default AddDeliveryAgentForm;

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { DeliveryBoysTableProps } from '@/lib/types';
+import { DeliveryAgentsTableProps } from '@/lib/types';
 import { flexRender, getCoreRowModel, useReactTable, getPaginationRowModel, SortingState, getSortedRowModel, ColumnFiltersState, getFilteredRowModel } from "@tanstack/react-table";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Button } from '@/components/ui/button';
@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input";
 import { Download, UserSearch } from 'lucide-react';
 import Papa from "papaparse";
 
-const DeliveryBoyTable = <TData, TValue>({ data, columns }: DeliveryBoysTableProps<TData, TValue>) => {
+const DeliveryAgentTable = <TData, TValue>({ data, columns }: DeliveryAgentsTableProps<TData, TValue>) => {
 
     const [sorting, setSorting] = useState<SortingState>([]);
     const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -32,7 +32,7 @@ const DeliveryBoyTable = <TData, TValue>({ data, columns }: DeliveryBoysTablePro
         const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
-        link.setAttribute("download", "delivery-boys.csv");
+        link.setAttribute("download", "delivery-agents.csv");
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -42,7 +42,7 @@ const DeliveryBoyTable = <TData, TValue>({ data, columns }: DeliveryBoysTablePro
         <section className='mx-5'>
             <div className="flex w-full items-center justify-between py-4">
                 <h2 className='font-semibold text-2xl'>
-                    Delivery Boy Details
+                    Delivery Agent Details
                 </h2>
                 <aside className='flex items-center gap-1'>
                     <div className='relative group md:w-[300px]'>
@@ -112,4 +112,4 @@ const DeliveryBoyTable = <TData, TValue>({ data, columns }: DeliveryBoysTablePro
     );
 }
 
-export default DeliveryBoyTable;
+export default DeliveryAgentTable;

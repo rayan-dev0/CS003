@@ -4,9 +4,9 @@ import React, { useRef } from 'react';
 import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from '@/components/ui/button';
 import { UserRoundPlus } from 'lucide-react';
-import AddDeliveryBoyForm from './add-boy-form';
+import AddDeliveryAgentForm from './add-agent-form';
 
-const AddDeliveryBoyDialog: React.FC = () => {
+const AddDeliveryAgentDialog: React.FC = () => {
 
     const closeRef = useRef<HTMLButtonElement>(null);
 
@@ -15,21 +15,21 @@ const AddDeliveryBoyDialog: React.FC = () => {
             <DialogTrigger asChild>
                 <Button>
                     <UserRoundPlus />
-                    Create Delivery Boy
+                    Create Delivery Agent
                 </Button>
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>
-                        Create Delivery Boy Account
+                        Create Delivery Agent Account
                     </DialogTitle>
                 </DialogHeader>
                 <hr />
-                <AddDeliveryBoyForm closeRef={closeRef} />
+                <AddDeliveryAgentForm closeRef={closeRef} />
                 <DialogClose ref={closeRef}></DialogClose>
             </DialogContent>
         </Dialog>
     )
 }
 
-export default AddDeliveryBoyDialog;
+export default AddDeliveryAgentDialog;

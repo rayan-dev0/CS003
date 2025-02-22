@@ -7,11 +7,12 @@ import { columns } from '@/components/custom-ui/seller/columns';
 
 const fetchSellers = async (): Promise<SellerType[]> => {
   try {
-    const response = await axios.get<{ success: boolean, sellers: SellerType[] }>(`${process.env.NEXT_PUBLIC_BACKEND_URI}api/seller`, {
+    const response = await axios.get<{ success: boolean, sellers: SellerType[] }>(`${process.env.NEXT_PUBLIC_BACKEND_URI}/seller/get-all-sellers`, {
       headers: {
-        "adminKey": `Bearer-O2fanmhj4m/IG5cxJHkCJpqx4mI59r5jXRqJJHOIfiE=`
+        "adminKey": `Bearer-${process.env.NEXT_PUBLIC_ADMIN_SECRET_KEY}`
       }
     });
+    console.log(response.data);
     return response.data.sellers;
   } catch (error) {
     console.error("Error fetching data" + error);

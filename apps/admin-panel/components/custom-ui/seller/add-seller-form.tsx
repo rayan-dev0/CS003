@@ -38,7 +38,7 @@ const AddSellerForm: React.FC<AddSellerFormProps> = ({ closeRef }) => {
             await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URI}/seller/create-seller-account`, sellerData, {
                 headers: {
                     "Content-Type": "application/json",
-                    "adminKey": `Bearer-${process.env.ADMIN_SECRET_KEY}`
+                    "adminKey": `Bearer-${process.env.NEXT_PUBLIC_ADMIN_SECRET_KEY}`
                 }
             });
             toast({

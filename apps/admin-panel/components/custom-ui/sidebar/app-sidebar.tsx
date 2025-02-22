@@ -29,8 +29,8 @@ const data = {
       isActive: true,
     },
     {
-      title: "Delivery Boys",
-      url: "/delivery-boys",
+      title: "Delivery Agents",
+      url: "/delivery-agents",
       icon: Truck,
       isActive: true,
     },

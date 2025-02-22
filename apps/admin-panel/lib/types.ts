@@ -54,16 +54,16 @@ export interface SellerTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
 }
 
-export interface AddDeliveryBoyProps {
+export interface AddDeliveryAgentProps {
     closeRef: React.RefObject<HTMLButtonElement | null>;
 }
 
-export interface UpdateDeliveryBoyFormProps {
+export interface UpdateDeliveryAgentFormProps {
     closeRef: React.RefObject<HTMLButtonElement | null>;
-    deliveryBoyData: DeliveryBoyType
+    deliveryAgentData: DeliveryAgentType
 }
 
-export interface DeliveryBoyType {
+export interface DeliveryAgentType {
     _id: string,
     username: string,
     password: string,
@@ -72,7 +72,7 @@ export interface DeliveryBoyType {
     sellers: string[]
 };
 
-export interface DeliveryBoysTableColumns {
+export interface DeliveryAgentsTableColumns {
     id: string,
     _id: string,
     username: string,
@@ -82,7 +82,7 @@ export interface DeliveryBoysTableColumns {
     sellers: string[]
 }
 
-export interface DeliveryBoysTableProps<TData, TValue> {
+export interface DeliveryAgentsTableProps<TData, TValue> {
     data: TData[],
     columns: ColumnDef<TData, TValue>[]
 };

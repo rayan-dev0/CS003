@@ -4,11 +4,11 @@ import React, { useRef } from 'react';
 import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from '@/components/ui/button';
 import { FilePenLine } from 'lucide-react';
-import { DeliveryBoyType } from '@/lib/types';
-import UpdateDeliveryBoyForm from './update-boy-form';
+import { DeliveryAgentType } from '@/lib/types';
+import UpdateDeliveryAgentForm from './update-agent-form';
 
 
-const UpdateDeliveryBoyDialog: React.FC<{ deliveryBoyData: DeliveryBoyType }> = ({ deliveryBoyData }) => {
+const UpdateDeliveryAgentDialog: React.FC<{ deliveryAgentData: DeliveryAgentType }> = ({ deliveryAgentData }) => {
 
     const closeRef = useRef<HTMLButtonElement>(null);
 
@@ -22,15 +22,15 @@ const UpdateDeliveryBoyDialog: React.FC<{ deliveryBoyData: DeliveryBoyType }> = 
             <DialogContent>
                 <DialogHeader>
                     <DialogTitle>
-                        Update Data of {deliveryBoyData.username}
+                        Update Data of {deliveryAgentData.username}
                     </DialogTitle>
                 </DialogHeader>
                 <hr />
-                <UpdateDeliveryBoyForm closeRef={closeRef} deliveryBoyData={deliveryBoyData} />
+                <UpdateDeliveryAgentForm closeRef={closeRef} deliveryAgentData={deliveryAgentData} />
                 <DialogClose ref={closeRef}></DialogClose>
             </DialogContent>
         </Dialog>
     )
 }
 
-export default UpdateDeliveryBoyDialog;
+export default UpdateDeliveryAgentDialog;
