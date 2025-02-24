@@ -11,12 +11,6 @@ export default auth((req: AuthNextRequest) => {
 
   if(nextUrl.pathname.startsWith("/api/auth")) return NextResponse.next();
 
-  if(nextUrl.pathname.startsWith("/api")) {
-    const adminKey = req.headers.get('adminKey');
-    if(!adminKey || adminKey !== `Bearer-${process.env.AUTH_SECRET}`) return NextResponse.json({ success: false, error: "Unauthorised"}, { status: 401 });
-    return NextResponse.next();
-  }
-
   if(isLoggedIn && nextUrl.pathname === "/") return NextResponse.redirect(new URL("/dashboard", nextUrl));
   if (!isLoggedIn && nextUrl.pathname !== "/") return NextResponse.redirect(new URL("/", nextUrl));
 

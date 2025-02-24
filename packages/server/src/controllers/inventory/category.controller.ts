@@ -1,0 +1,39 @@
+import { Request, Response } from "express";
+import { getErrorMessage } from "../../utils/error";
+import { addCategory, deleteCategory, getAllCategories, updateCategory } from "../../services/inventory/category.service";
+
+export const createNewCategory = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const result = await addCategory({...req.body, seller: req.seller});
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    }
+}
+
+export const fetchAllCategories = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const result = await getAllCategories(req.seller as string);
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    }
+}
+
+export const updateCategoryData = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const result = await updateCategory(req.params.categoryId, req.body);
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    }
+}
+
+export const removeCategory = async (req: Request, res: Response): Promise<void> => {
+    try {
+        const result = await deleteCategory(req.params.categoryId);
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(400).json(getErrorMessage(error));
+    }
+}

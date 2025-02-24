@@ -17,3 +17,30 @@ export const agentValidation = z.object({
     phoneNumber: z.string().length(10, "Phone number contain 10 digits"),
     sellers: z.array(z.string())
 });
+
+export const categoryValidation = z.object({
+    name: z.string(),
+    seller: z.string(),
+    sub_categories: z.array(z.string())
+});
+
+export const subCategoryValidation = z.object({
+    name: z.string(),
+    seller: z.string(),
+    category: z.string()
+});
+
+export const productValidation = z.object({
+    name: z.string(),
+    description: z.string().optional(),
+    price: z.number(),
+    seller: z.string(),
+    stock_quantity: z.number().default(0),
+    sku: z.string(), 
+    barcode: z.string(), 
+    category: z.string(),
+    sub_category: z.string(),
+    purchase_cost: z.number(),
+    images: z.array(z.string()),
+    status: z.enum(['Out of Stock', 'In Stock', 'Low Stock']).default('In Stock'),
+})
