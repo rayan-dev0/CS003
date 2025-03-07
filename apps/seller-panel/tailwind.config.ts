@@ -10,6 +10,7 @@ export default {
   theme: {
   	extend: {
   		colors: {
+			border: "hsl(var(--border))",
   			background: 'var(--background)',
   			foreground: 'var(--foreground)',
   			sidebar: {
@@ -27,7 +28,7 @@ export default {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
   	}
   },
   plugins: [require("tailwindcss-animate")],
