@@ -23,7 +23,7 @@ export const fetchAllSellerAccounts= async (req: Request, res: Response): Promis
 
 export const fetchSellerAccount = async (req: Request, res: Response): Promise<void> => {
     try {
-        const result = await getOneSeller(req.params.sellerId);
+        const result = await getOneSeller(req.params.emailId);
         res.status(200).json(result);
     } catch (error) {
         res.status(400).json(getErrorMessage(error));

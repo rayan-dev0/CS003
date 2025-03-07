@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from "express";
 import { getErrorMessage } from "../utils/error";
 import SellerModel from "../schemas/seller.schema";
+import { AuthRequest } from "../utils/types";
 
-export const authenticateSellerMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const authenticateSellerMiddleware = async (req: AuthRequest, res: Response, next: NextFunction): Promise<void> => {
     try {
         const header = req.header('sellerId');
         const seller = await SellerModel.findById(header);

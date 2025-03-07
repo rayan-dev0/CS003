@@ -27,9 +27,9 @@ export const getAllSellers = async () => {
     }
 };
 
-export const getOneSeller = async (sellerId: string) => {
+export const getOneSeller = async (email: string) => {
     try {
-        const seller = await SellerModel.findById(sellerId);
+        const seller = await SellerModel.findOne({ email });
         return { success: true, seller };
     } catch (error) {
         return { success: false, error: "Internal server error" };

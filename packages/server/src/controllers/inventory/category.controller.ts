@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 import { getErrorMessage } from "../../utils/error";
 import { addCategory, deleteCategory, getAllCategories, updateCategory } from "../../services/inventory/category.service";
+import { AuthRequest } from "../../utils/types";
 
-export const createNewCategory = async (req: Request, res: Response): Promise<void> => {
+export const createNewCategory = async (req: AuthRequest, res: Response): Promise<void> => {
     try {
         const result = await addCategory({...req.body, seller: req.seller});
         res.status(200).json(result);
@@ -11,7 +12,7 @@ export const createNewCategory = async (req: Request, res: Response): Promise<vo
     }
 }
 
-export const fetchAllCategories = async (req: Request, res: Response): Promise<void> => {
+export const fetchAllCategories = async (req: AuthRequest, res: Response): Promise<void> => {
     try {
         const result = await getAllCategories(req.seller as string);
         res.status(200).json(result);

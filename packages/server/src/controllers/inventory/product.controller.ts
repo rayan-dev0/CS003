@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
 import { getErrorMessage } from "../../utils/error";
 import { addProduct, deleteProduct, getAllProducts, updateProduct } from "../../services/inventory/product.service";
+import { AuthRequest } from "../../utils/types";
 
-export const createNewProduct = async (req: Request, res: Response): Promise<void> => {
+export const createNewProduct = async (req: AuthRequest, res: Response): Promise<void> => {
     try {
         const result = await addProduct({...req.body, seller: req.seller});
         res.status(200).json(result);
@@ -11,7 +12,7 @@ export const createNewProduct = async (req: Request, res: Response): Promise<voi
     }
 }
 
-export const fetchAllProducts = async (req: Request, res: Response): Promise<void> => {
+export const fetchAllProducts = async (req: AuthRequest, res: Response): Promise<void> => {
     try {
         const result = await getAllProducts(req.seller as string);
         res.status(200).json(result);

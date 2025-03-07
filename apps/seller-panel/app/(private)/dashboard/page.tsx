@@ -1,15 +1,17 @@
-import { auth } from '@/auth';
+"use client";
+
+import { signOut } from 'next-auth/react';
 import React from 'react';
 
-const Dashboard = async () => {
-  const sessionAuth = await auth()
-  console.log("sessionAuth====>", sessionAuth);
-
-  return (
-    <div>
-
-    </div>
-  )
+const Dashboard = () => {
+    return (
+        <div>
+            Seller Dashboard
+            <button onClick={() => signOut()}>
+                Logout
+            </button>
+        </div>
+    )
 }
 
 export default Dashboard;

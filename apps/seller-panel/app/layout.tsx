@@ -1,3 +1,4 @@
+import { Toaster } from "sonner";
 import "./globals.css";
 
 const AuthLayout = ({  children }: Readonly<{ children: React.ReactNode }>) => {
@@ -10,6 +11,7 @@ const AuthLayout = ({  children }: Readonly<{ children: React.ReactNode }>) => {
       </head>
       <body>
           {children}
+          <Toaster />
       </body>
     </html>
   );
