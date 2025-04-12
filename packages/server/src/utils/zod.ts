@@ -18,16 +18,14 @@ export const agentValidation = z.object({
     sellers: z.array(z.string())
 });
 
-export const categoryValidation = z.object({
+export const adminCategoryValidation = z.object({
     name: z.string(),
-    seller: z.string(),
-    sub_categories: z.array(z.string())
+    categories: z.array(z.string())
 });
 
-export const subCategoryValidation = z.object({
+export const categoryValidation = z.object({
     name: z.string(),
-    seller: z.string(),
-    category: z.string()
+    seller: z.string()
 });
 
 export const productValidation = z.object({
@@ -38,8 +36,8 @@ export const productValidation = z.object({
     stock_quantity: z.number().default(0),
     sku: z.string().optional(), 
     barcode: z.string().optional(), 
+    admin_category: z.string(),
     category: z.string(),
-    sub_category: z.string(),
     images: z.array(z.string()).optional(),
     status: z.enum(['Out of Stock', 'In Stock', 'Low Stock']).default('In Stock'),
 })

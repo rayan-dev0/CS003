@@ -3,8 +3,8 @@ import cors from "cors";
 import connectDatabase from "./db";
 import sellerRoute from "./routes/seller.route";
 import deliveryAgentRoute from "./routes/agent.route";
+import adminCategoryRoute from "./routes/inventory/admin-category.route";
 import categoryRoute from "./routes/inventory/category.route";
-import subCategoryRoute from "./routes/inventory/sub-category.route";
 import productRoute from "./routes/inventory/product.route";
 import dotenv from "dotenv";
 import path from "path";
@@ -18,8 +18,8 @@ app.use(cors());
 
 app.use('/seller', sellerRoute);
 app.use('/delivery', deliveryAgentRoute);
+app.use('/inventory/admin-category', adminCategoryRoute);
 app.use('/inventory/category', categoryRoute);
-app.use('/inventory/sub-category', subCategoryRoute);
 app.use('/inventory/product', productRoute);
 
 const startServer = async () => {

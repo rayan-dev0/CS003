@@ -1,6 +1,6 @@
 import { z } from "zod";
-import CategoryModel from "../../schemas/inventory/category.schema";
 import { categoryValidation } from "../../utils/zod";
+import CategoryModel from "../../schemas/inventory/category.schema";
 
 export const addCategory = async (categoryData: z.infer<typeof categoryValidation>) => {
     try {
