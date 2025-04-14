@@ -52,7 +52,7 @@ const AddDeliveryAgentForm: React.FC<AddDeliveryAgentProps> = ({ closeRef }) => 
 
     const createNewDeliveryAgent = async (agentData: z.infer<typeof agentValidation>) => {
         try {
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URI}/delivery/create-agent-account`, agentData, {
+            await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URI}/delivery/create-agent-account`, agentData, {
                 headers: {
                     "Content-Type": "application/json",
                     "adminKey": `Bearer-${process.env.NEXT_PUBLIC_ADMIN_SECRET_KEY}`

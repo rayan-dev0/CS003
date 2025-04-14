@@ -1,4 +1,5 @@
 import { LucideIcon } from "lucide-react";
+import { ReactNode } from "react";
 
 export interface SellerDataType {
     id: string,
@@ -21,4 +22,8 @@ export interface NavItemsType {
 export interface SellerUserType {
     username: string,
     email: string,
+}
+
+export interface ProviderType {
+    children: ReactNode
 }

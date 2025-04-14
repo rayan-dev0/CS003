@@ -21,6 +21,7 @@ const fetchSellers = async (): Promise<SellerType[]> => {
 }
 
 const Seller = async () => {
+  
   const sellers: SellerType[] = await fetchSellers();
 
   return (

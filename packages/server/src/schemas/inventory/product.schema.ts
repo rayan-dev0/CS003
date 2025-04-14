@@ -6,7 +6,6 @@ const ProductSchema = new Schema({
     price: { type: Number, required: true },
     seller: { type: Types.ObjectId, ref: 'seller', required: true },
     stock_quantity: { type: Number, required: true, default: 0 },
-    sku: { type: String, unique: true }, 
     barcode: { type: String, unique: true, sparse: true }, 
     admin_category: { type: Types.ObjectId, ref: 'admin_category', required: true },
     category: { type: Types.ObjectId, ref: 'category', required: true },
