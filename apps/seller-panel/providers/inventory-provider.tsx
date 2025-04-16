@@ -32,12 +32,9 @@ const InventoryProvider: React.FC<ProviderType> = ({ children }) => {
         }
     }
 
-    console.log(categories)
-
     useEffect(() => {
         if(session) {
             fetchCategories();
-            console.log(categories)
         }
     }, [session]);
 

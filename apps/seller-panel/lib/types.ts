@@ -1,3 +1,4 @@
+import { ColumnDef } from "@tanstack/react-table";
 import { LucideIcon } from "lucide-react";
 import { ReactNode } from "react";
 
@@ -26,4 +27,30 @@ export interface SellerUserType {
 
 export interface ProviderType {
     children: ReactNode
+}
+
+export interface ProductCardProps {
+    cardData: {
+        _id: string,
+        name: string,
+        price: number,
+        images: string[],
+        category: string,
+        status: "In Stock" | "Out of Stock",
+        stock_quantity: number
+    }
+}
+
+export interface ProductsTableColumns {
+    _id: string,
+    productName: string,
+    productCategory: string,
+    productPricing: number,
+    stockStatus: "In Stock" | "Out of Stock",
+    stockQuantity: number
+}
+
+export interface ProductsTableProps<TData, TValue> {
+    data: TData[],
+    columns: ColumnDef<TData, TValue>[]
 }
