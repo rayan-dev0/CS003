@@ -17,7 +17,7 @@ export const addProduct = async (productData: z.infer<typeof productValidation>)
     } catch (error) {
         return {
             success: false,
-            error: "Internal server error"
+            error: `Internal server error: ${error}`
         }
     }
 }

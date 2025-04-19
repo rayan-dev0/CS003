@@ -10,6 +10,6 @@ router.post('/create', createNewProduct);
 router.get('/get', fetchAllProducts);
 router.put('/update/:productId', updateProductData);
 router.delete('/delete/:productId', removeProduct);
-router.post('/upload', upload.array('file', 5), uploadImgToBlobStorage);
+router.post('/upload', upload.array('images', 5), uploadImgToBlobStorage);
 
 export default router;

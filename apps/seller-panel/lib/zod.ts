@@ -10,7 +10,7 @@ export const newProductFormValidation = z.object({
     description: z.string().optional(),
     price: z.string().min(1, "Price is required"),
     stock_quantity: z.string().min(1, "Stock quantity is required"),
-    admin_category: z.enum(["Food", "General"]),
+    admin_category: z.string(),
     category: z.string().min(1, "Category is required"),
     images: z.array(z.string()).optional(),
     status: z.enum(["In Stock", "Out of Stock"])

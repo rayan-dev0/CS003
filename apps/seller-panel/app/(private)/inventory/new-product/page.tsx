@@ -68,28 +68,28 @@ const NewProduct = () => {
     };
 
     const handleImageUpload = async (files: File[]) => {
-        const uploadedURLs: string[] = [];
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            const formData = new FormData();
-            formData.append('file', file);
-
-            try {
-                const response = await axios.post('/api/upload-to-azure', formData, {
+        const formData = new FormData();
+        files.forEach(file => {
+            formData.append('images', file); 
+        });
+    
+        try {
+            const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URI}/inventory/product/upload`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
+                        "sellerId": `${session.data?.user?.id}`,
                     }
-                });
+                }
+            );
 
-                uploadedURLs.push(response.data.url);
-            } catch (error) {
-                toast.error("Error uploading image");
-                console.error("Error uploading image:", error);
-            }
+            return response.data.urls;
+        } catch (error) {
+            toast.error("Image upload failed.");
+            console.error("Azure upload error:", error);
+            return [];
         }
-        return uploadedURLs;
     };
-
+    
     const addNewProduct = async (data: any) => {
         const price = parseFloat(data.price);
         const stock_quantity = parseInt(data.stock_quantity, 10);
@@ -104,28 +104,29 @@ const NewProduct = () => {
             price,
             stock_quantity,
             description,
-            images: uploadedImageURLs,
-            seller: session.data?.user?.id
+            images: uploadedImageURLs
         };
+
+        console.log("Product Data:", productData);
     
         try {
             await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URI}/inventory/product/create`, productData, {
-                headers: {
-                    "Content-Type": "application/json",
-                    "sellerId": productData.seller
+                    headers: {
+                        "Content-Type": "application/json",
+                        "sellerId": `${session.data?.user?.id}`
+                    }
                 }
-            });
+            );
             toast.success("New product added successfully");
             form.reset();
             setDescription("");
             setSelectedImages([]);
             setImageFiles([]);
-            router.push("/inventory");
         } catch (error) {
             toast.error("Failed to add product.");
             console.error('Error adding product:', error);
         }
-    };
+    };    
 
     return (
         <main className='w-full px-5 py-4'>
@@ -205,7 +206,7 @@ const NewProduct = () => {
                                                         <SelectContent className='bg-white'>
                                                             {
                                                                 categories?.map(category => (
-                                                                    <SelectItem value={category._id}>{category?.name}</SelectItem>
+                                                                    <SelectItem key={category._id} value={category._id}>{category?.name}</SelectItem>
                                                                 ))
                                                             }
                                                         </SelectContent>
