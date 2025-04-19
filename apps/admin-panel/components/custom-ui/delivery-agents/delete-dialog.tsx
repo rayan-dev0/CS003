@@ -35,7 +35,7 @@ const DeleteDialog: React.FC<{ deliveryAgentId: string }> = ({ deliveryAgentId }
                 <Trash2 />
             </Button>
         </AlertDialogTrigger>
-        <AlertDialogContent>
+        <AlertDialogContent className="bg-white">
           <AlertDialogHeader>
             <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
             <AlertDialogDescription>
@@ -57,3 +57,5 @@ const DeleteDialog: React.FC<{ deliveryAgentId: string }> = ({ deliveryAgentId }
 }
   
 export default DeleteDialog;
+
+

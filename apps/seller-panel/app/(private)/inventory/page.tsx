@@ -24,8 +24,9 @@ export default async function InventoryPage() {
 
   const session = await auth();
   const sellerId = session?.user?.id;
+  let products = [];
 
-  const products = await fetchProducts(sellerId as string);
+  if(sellerId) products = await fetchProducts(sellerId);
 
   return (
     <main className="w-full">

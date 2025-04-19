@@ -33,11 +33,12 @@ const NewProduct = () => {
             stock_quantity: 0,
             admin_category: "67fcaf5cfe6312053117b084",
             category: "",
-            images: [],
+            images: [] as string[],
             status: "Out of Stock"
         }
     });
     const [selectedImages, setSelectedImages] = useState<string[]>([]);
+    const [imageFiles, setImageFiles] = useState<File[]>([]);
     const [description, setDescription] = useState("");
     const router = useRouter();
 
@@ -46,17 +47,23 @@ const NewProduct = () => {
     const handleImageSelection = (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
         if (files && files.length > 0) {
-            const selectedImageURLs: string[] = [];
             if (selectedImages.length + files.length > 5) {
                 toast.error("You can only upload a maximum of 5 images.");
                 return;
             }
+    
+            const selectedImageURLs: string[] = [];
+            const newFiles: File[] = [];
+    
             for (let i = 0; i < files.length; i++) {
                 const file = files[i];
-                const fileURL = URL.createObjectURL(file); 
+                const fileURL = URL.createObjectURL(file);
                 selectedImageURLs.push(fileURL);
+                newFiles.push(file);
             }
-            setSelectedImages(selectedImageURLs); 
+    
+            setSelectedImages(prev => [...prev, ...selectedImageURLs]);
+            setImageFiles(prev => [...prev, ...newFiles]);
         }
     };
 
@@ -86,19 +93,21 @@ const NewProduct = () => {
     const addNewProduct = async (data: any) => {
         const price = parseFloat(data.price);
         const stock_quantity = parseInt(data.stock_quantity, 10);
-        const uploadedImageURLs = await handleImageUpload(selectedImages.map((img) => {
-            const file = selectedImages.find(url => url === img);
-            return file;
-        }));
+    
+        let uploadedImageURLs: string[] = [];
+        if (imageFiles.length > 0) {
+            uploadedImageURLs = await handleImageUpload(imageFiles);
+        }
+    
         const productData = {
             ...data,
             price,
-            images: uploadedImageURLs,
             stock_quantity,
             description,
+            images: uploadedImageURLs,
             seller: session.data?.user?.id
         };
-
+    
         try {
             await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URI}/inventory/product/create`, productData, {
                 headers: {
@@ -107,6 +116,11 @@ const NewProduct = () => {
                 }
             });
             toast.success("New product added successfully");
+            form.reset();
+            setDescription("");
+            setSelectedImages([]);
+            setImageFiles([]);
+            router.push("/inventory");
         } catch (error) {
             toast.error("Failed to add product.");
             console.error('Error adding product:', error);

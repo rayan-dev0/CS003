@@ -3,8 +3,9 @@
 import { Button } from '@/components/ui/button';
 import { ProductsTableColumns } from '@/lib/types';
 import { ColumnDef } from '@tanstack/react-table';
-import { ArrowUpDown, ScanEye } from "lucide-react";
+import { ArrowUpDown, PencilLine, ScanEye } from "lucide-react";
 import Link from 'next/link';
+import DeleteProductDialog from './delete-product-dialog';
 
 export const columns: ColumnDef<ProductsTableColumns>[] = [
     {
@@ -56,8 +57,12 @@ export const columns: ColumnDef<ProductsTableColumns>[] = [
                             <ScanEye />
                         </Button>
                     </Link>
-                    {/* <UpdateDeliveryAgentDialog deliveryAgentData={deliveryAgent} />
-                    <DeleteDialog deliveryAgentId={deliveryAgent._id} /> */}
+                    <Link href={`/inventory/edit-product/${product._id}`}>
+                        <Button size={'icon'} variant={'ghost'}>
+                            <PencilLine />
+                        </Button>
+                    </Link>
+                    <DeleteProductDialog productId={product._id} />
                 </article>
             )
         }

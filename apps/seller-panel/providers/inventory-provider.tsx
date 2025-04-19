@@ -1,12 +1,12 @@
 "use client";
 
-import { ProviderType } from '@/lib/types';
+import { ProductCategoryType, ProviderType } from '@/lib/types';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import React, { createContext, useEffect, useState } from 'react';
 
 export const InventoryContext = createContext({
-    categories: [],
+    categories: [] as ProductCategoryType[],
     fetchCategories: () => {}
 });
 
@@ -14,7 +14,7 @@ const InventoryProvider: React.FC<ProviderType> = ({ children }) => {
 
     const session = useSession();
 
-    const [categories, setCategories] = useState([]);
+    const [categories, setCategories] = useState<ProductCategoryType[]>([]);
 
     const fetchCategories = async () => {
         try {
@@ -33,7 +33,7 @@ const InventoryProvider: React.FC<ProviderType> = ({ children }) => {
     }
 
     useEffect(() => {
-        if(session) {
+        if(session.data?.user?.id) {
             fetchCategories();
         }
     }, [session]);

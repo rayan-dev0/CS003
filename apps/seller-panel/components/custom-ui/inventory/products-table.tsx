@@ -19,7 +19,6 @@ const ProductsTable = <TData, TValue>({ data, columns }: ProductsTableProps<TDat
 
     const products = data.map(product => {
         const category = categories.find(cat => cat._id === product.category);
-
         return {
             ...product,
             category: category?.name
@@ -96,7 +95,7 @@ const ProductsTable = <TData, TValue>({ data, columns }: ProductsTableProps<TDat
                             table.getRowModel().rows.map((row) => (
                                 <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
                                     {row.getVisibleCells().map((cell) => (
-                                        <TableCell key={cell.id}>
+                                        <TableCell key={cell.id} className='text-center'>
                                             {flexRender(cell.column.columnDef.cell, cell.getContext())}
                                         </TableCell>
                                     ))}

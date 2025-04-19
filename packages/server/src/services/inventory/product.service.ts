@@ -1,6 +1,8 @@
 import { z } from "zod";
 import ProductModel from "../../schemas/inventory/product.schema";
 import { productValidation } from "../../utils/zod";
+import { BlobServiceClient } from "@azure/storage-blob";
+import { v4 as uuidv4 } from 'uuid';
 
 export const addProduct = async (productData: z.infer<typeof productValidation>) => {
     try {
@@ -66,3 +68,17 @@ export const deleteProduct = async (productId: string) => {
         }
     }
 }
+
+export const uploadImgToAzure = async (fileBuffer: Buffer, originalName: string): Promise<string> => {
+    const blobServiceClient = BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION_STRING as string);
+    const containerClient = blobServiceClient.getContainerClient(process.env.AZURE_STORAGE_CONTAINER_NAME as string);
+
+    const blobName = `${uuidv4()}-${originalName}`;
+    const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+
+    await blockBlobClient.uploadData(fileBuffer, {
+        blobHTTPHeaders: { blobContentType: 'image/png' }, 
+    });
+
+    return blockBlobClient.url;
+};

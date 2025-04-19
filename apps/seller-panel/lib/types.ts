@@ -29,6 +29,11 @@ export interface ProviderType {
     children: ReactNode
 }
 
+export interface ProductCategoryType {
+    _id: string,
+    name: string
+}
+
 export interface ProductCardProps {
     cardData: {
         _id: string,
