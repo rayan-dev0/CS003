@@ -6,6 +6,7 @@ import { ColumnDef } from '@tanstack/react-table';
 import { ArrowUpDown, PencilLine, ScanEye } from "lucide-react";
 import Link from 'next/link';
 import DeleteProductDialog from './delete-product-dialog';
+import EditProductModal from './edit-product-modal';
 
 export const columns: ColumnDef<ProductsTableColumns>[] = [
     {
@@ -52,16 +53,7 @@ export const columns: ColumnDef<ProductsTableColumns>[] = [
 
             return (
                 <article className='flex items-center gap-1'>
-                    <Link href={`/inventory/products/${product._id}`}>
-                        <Button size={'icon'} variant={'ghost'}>
-                            <ScanEye />
-                        </Button>
-                    </Link>
-                    <Link href={`/inventory/edit-product/${product._id}`}>
-                        <Button size={'icon'} variant={'ghost'}>
-                            <PencilLine />
-                        </Button>
-                    </Link>
+                    <EditProductModal productData={product} />
                     <DeleteProductDialog productId={product._id} />
                 </article>
             )

@@ -59,3 +59,7 @@ export interface ProductsTableProps<TData, TValue> {
     data: TData[],
     columns: ColumnDef<TData, TValue>[]
 }
+
+export interface EditProductModalProps {
+    productData: any
+}
