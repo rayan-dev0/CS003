@@ -18,11 +18,11 @@ const ProductsTable = ({ data, columns }: ProductsTableProps<ProductsTableColumn
     // Memoize the products transformation to prevent unnecessary recalculations
     const products = useMemo(() => {
         return data.map(product => {
-            const category = categories.find(cat => cat._id === product.category);
+            const category = categories?.find(cat => cat._id === product.category);
             return {
                 ...product,
-                category: category?.name
-            }
+                category: category?.name || product.category // Fallback to original category if not found
+            } as ProductsTableColumns;
         });
     }, [data, categories]);
 
