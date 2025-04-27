@@ -1,8 +1,8 @@
 // @ts-ignore 
-import { NextAuthOptions } from "next-auth";
+import type { NextAuthConfig } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-export const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthConfig = {
     secret: process.env.NEXTAUTH_SECRET,
     session: {
         strategy: "jwt",
@@ -37,7 +37,7 @@ export const authOptions: NextAuthOptions = {
         },
         async session({ session, token }) {
             if (token.user) {
-                session.user = token.user as { id: string; name: string, role?: string };
+                session.user = token.user as any;
             }
             return session;
         }
