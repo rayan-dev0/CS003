@@ -33,21 +33,21 @@ const DeleteProductDialog: React.FC<{ productId: string }> = ({ productId }) => 
                     <Trash2 />
                 </Button>
             </AlertDialogTrigger>
-            <AlertDialogContent>
-            <AlertDialogHeader>
-                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                <AlertDialogDescription>
-                This action cannot be undone. This will permanently delete the product from the servers.
-                </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-                <AlertDialogCancel>
-                    Cancel
-                </AlertDialogCancel>
-                <AlertDialogAction className="bg-red-600" onClick={() => deleteProduct(productId)}>
-                    Delete
-                </AlertDialogAction>
-            </AlertDialogFooter>
+            <AlertDialogContent className='bg-white'>
+                <AlertDialogHeader>
+                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete the product from the servers.
+                    </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                    <AlertDialogCancel>
+                        Cancel
+                    </AlertDialogCancel>
+                    <AlertDialogAction className="bg-red-600" onClick={() => deleteProduct(productId)}>
+                        Delete
+                    </AlertDialogAction>
+                </AlertDialogFooter>
             </AlertDialogContent>
         </AlertDialog>
     )

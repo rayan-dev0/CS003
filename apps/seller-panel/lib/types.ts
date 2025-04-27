@@ -48,11 +48,14 @@ export interface ProductCardProps {
 
 export interface ProductsTableColumns {
     _id: string,
-    productName: string,
-    productCategory: string,
-    productPricing: number,
-    stockStatus: "In Stock" | "Out of Stock",
-    stockQuantity: number
+    name: string,
+    category: string,
+    price: number,
+    status: "In Stock" | "Out of Stock",
+    stock_quantity: number,
+    images: string[],
+    description: string,
+    admin_category: string
 }
 
 export interface ProductsTableProps<TData, TValue> {

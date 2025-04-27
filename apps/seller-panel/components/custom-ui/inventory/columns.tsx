@@ -3,8 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { ProductsTableColumns } from '@/lib/types';
 import { ColumnDef } from '@tanstack/react-table';
-import { ArrowUpDown, PencilLine, ScanEye } from "lucide-react";
-import Link from 'next/link';
+import { ArrowUpDown } from "lucide-react";
 import DeleteProductDialog from './delete-product-dialog';
 import EditProductModal from './edit-product-modal';
 
