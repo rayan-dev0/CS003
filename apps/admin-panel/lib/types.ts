@@ -1,5 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { LucideIcon } from "lucide-react";
+import { ReactNode } from "react";
 
 export interface AdminType {
     user: {
@@ -86,3 +87,7 @@ export interface DeliveryAgentsTableProps<TData, TValue> {
     data: TData[],
     columns: ColumnDef<TData, TValue>[]
 };
+
+export interface ProviderType {
+    children: ReactNode
+}

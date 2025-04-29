@@ -1,9 +1,7 @@
 "use client";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
 import { Search, Download, Bell, Users, LineChart, ShoppingCart } from "lucide-react";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
 const salesData = [
   { month: "Jan", revenue: 1000 },

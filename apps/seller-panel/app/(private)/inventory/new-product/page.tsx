@@ -9,7 +9,8 @@ import { ChartColumn, CheckIcon, ImagesIcon, IndianRupee, Layers, PlusCircle, Sh
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import ReactQuill from 'react-quill-new';
+import dynamic from 'next/dynamic';
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 import 'react-quill-new/dist/quill.snow.css';
 import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { toast } from 'sonner';

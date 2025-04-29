@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -14,30 +14,19 @@ import { AddDeliveryAgentProps } from '@/lib/types';
 import { useToast } from '@/hooks/use-toast';
 import { ToastAction } from '@/components/ui/toast';
 import Select from "react-select";
+import { AccountsContext } from '@/providers/accounts-provider';
 
 const AddDeliveryAgentForm: React.FC<AddDeliveryAgentProps> = ({ closeRef }) => {
+
+    const { sellers } = useContext(AccountsContext);
 
     const [viewPassword, setViewPassword] = useState<boolean>(false);
     const { toast } = useToast();
 
-    const sellerOptions = [
-        {
-            label: "s1",
-            value: "67ab824b65a868960a8af86ed1"
-        },
-        {
-            label: "s2",
-            value: "67acb9b62f6e35aa5f0ff1f6"
-        },
-        {
-            label: "s3",
-            value: "67b23e2a855ed6063c61f48b"
-        },
-        {
-            label: "s4",
-            value: "67b23e2a855ed6063c61f48b"
-        },
-    ]
+    const sellerOptions = sellers.map((seller) => ({
+        label: seller.username,
+        value: seller._id
+    }));
 
     const form = useForm<z.infer<typeof agentValidation>>({
         resolver: zodResolver(agentValidation),

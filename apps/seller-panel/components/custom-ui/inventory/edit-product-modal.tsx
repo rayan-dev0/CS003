@@ -15,7 +15,8 @@ import { InventoryContext } from '@/providers/inventory-provider';
 import { toast } from 'sonner';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
-import ReactQuill from 'react-quill-new';
+import dynamic from 'next/dynamic';
+const ReactQuill = dynamic(() => import('react-quill-new'), { ssr: false });
 import 'react-quill-new/dist/quill.snow.css';
 import { PlusCircle } from 'lucide-react';
 
