@@ -66,3 +66,11 @@ export interface ProductsTableProps<TData, TValue> {
 export interface EditProductModalProps {
     productData: any
 }
+
+export interface DeliveryAgentType {
+    _id: string;
+    username: string;
+    email: string;
+    phoneNumber: string;
+    sellers: string[];
+}
