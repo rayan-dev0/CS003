@@ -22,27 +22,22 @@ app.use('/inventory/admin-category', adminCategoryRoute);
 app.use('/inventory/category', categoryRoute);
 app.use('/inventory/product', productRoute);
 
-// Add a health check endpoint
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok' });
 });
 
-// Connect to database and start server only if not in Vercel environment
-if (process.env.VERCEL !== '1') {
-  const startServer = async () => {
-    try {
-      await connectDatabase();
-      app.listen(PORT, () => {
-        console.log(`🚀 Server listening at http://localhost:${PORT}`);
-      });
-    } catch (error) {
-      console.error("❌ Server startup failed:", error);
-      process.exit(1);
-    }
+const startServer = async () => {
+  try {
+    await connectDatabase();
+    app.listen(PORT, () => {
+      console.log(`🚀 Server listening at http://localhost:${PORT}`);
+    });
+  } catch (error) {
+    console.error("❌ Server startup failed:", error);
+    process.exit(1);
   }
-
-  startServer();
 }
 
-// Export the Express app for Vercel
+startServer();
+
 export default app;
