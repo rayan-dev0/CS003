@@ -41,8 +41,8 @@ const EditProductModal: React.FC<EditProductModalProps> = ({ productData }) => {
         defaultValues: {
             name: productData.name || '',
             description: productData.description || '',
-            price: productData.price?.toString() || '',
-            stock_quantity: productData.stock_quantity?.toString() || '0',
+            price: productData.price || 0,
+            stock_quantity: productData.stock_quantity || 0,
             admin_category: productData.admin_category || '',
             category: categoryId || '',
             images: productData.images || [],
