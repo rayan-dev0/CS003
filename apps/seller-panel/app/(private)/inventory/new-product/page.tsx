@@ -30,7 +30,7 @@ const NewProduct = () => {
         defaultValues: {
             name: "",
             description: "",
-            price: "",
+            price: 0,
             stock_quantity: 0,
             admin_category: "67fcaf5cfe6312053117b084",
             category: "",
