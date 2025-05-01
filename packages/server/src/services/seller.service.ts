@@ -13,8 +13,8 @@ export const addNewSeller = async (sellerData: z.infer<typeof sellerValidation>)
 
         await SellerModel.create(result.data);
         return { success: true, message: "Seller added successfully" };
-    } catch {
-        return { success: false, error: "Internal server error" };
+    } catch (error) {
+        return { success: false, error: `Internal server error: ${error}` };
     }
 };
 
@@ -22,8 +22,8 @@ export const getAllSellers = async () => {
     try {
         const sellers = await SellerModel.find();
         return { success: true, sellers };
-    } catch {
-        return { success: false, error: "Internal server error" };
+    } catch (error) {
+        return { success: false, error: `Internal server error: ${error}` };
     }
 };
 
@@ -32,7 +32,7 @@ export const getOneSeller = async (email: string) => {
         const seller = await SellerModel.findOne({ email });
         return { success: true, seller };
     } catch (error) {
-        return { success: false, error: "Internal server error" };
+        return { success: false, error: `Internal server error: ${error}` };
     }
 }
 
@@ -48,8 +48,8 @@ export const updateSellerData = async (sellerId: string, sellerData: z.infer<typ
 
         await SellerModel.findByIdAndUpdate(sellerId, { $set: result.data }, { new: true });
         return { success: true, message: "Seller updated successfully" };
-    } catch {
-        return { success: false, error: "Internal server error" };
+    } catch (error) {
+        return { success: false, error: `Internal server error: ${error}` };
     }
 };
 
@@ -60,7 +60,7 @@ export const removeSeller = async (sellerId: string) => {
 
         await SellerModel.findByIdAndDelete(sellerId);
         return { success: true, message: "Seller deleted successfully" };
-    } catch {
-        return { success: false, error: "Internal server error" };
+    } catch (error) {
+        return { success: false, error: `Internal server error: ${error}` };
     }
 };

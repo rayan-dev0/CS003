@@ -13,10 +13,7 @@ export const addCategory = async (categoryData: z.infer<typeof categoryValidatio
         await CategoryModel.create(result.data);
         return { success: true, message: "Category created successfully" };
     } catch (error) {
-        return {
-            success: false,
-            error: "Internal server error"
-        }
+        return { success: false, error: `Internal server error: ${error}` };
     }
 }
 
@@ -25,10 +22,7 @@ export const getAllCategories = async (sellerId: string) => {
         const categories = await CategoryModel.find({ seller: sellerId });
         return { success: true, categories };
     } catch (error) {
-        return {
-            success: false,
-            error: "Internal server error"
-        }
+        return { success: false, error: `Internal server error: ${error}` };
     }
 }
 
@@ -45,10 +39,7 @@ export const updateCategory = async (categoryId: string, categoryData: z.infer<t
         await CategoryModel.findByIdAndUpdate(categoryId, { $set: categoryData }, { new: true });
         return { success: true, message: "Category updated successfully" };
     } catch (error) {
-        return {
-            success: false,
-            error: "Internal server error"
-        }
+        return { success: false, error: `Internal server error: ${error}` };
     }
 }
 
@@ -60,9 +51,6 @@ export const deleteCategory = async (categoryId: string) => {
         await CategoryModel.findByIdAndDelete(categoryId);
         return { success: true, message: "Category deleted successfully" };
     } catch (error) {
-        return {
-            success: false,
-            error: "Internal server error"
-        }
+        return { success: false, error: `Internal server error: ${error}` };
     }
 }

@@ -13,10 +13,7 @@ export const addAdminCategory = async (categoryData: z.infer<typeof adminCategor
         await AdminCategoryModel.create(result.data);
         return { success: true, message: "Admin Category created successfully" };
     } catch (error) {
-        return {
-            success: false,
-            error: "Internal server error"
-        }
+        return { success: false, error: `Internal server error: ${error}` };
     }
 }
 
@@ -25,10 +22,7 @@ export const getAllAdminCategories = async () => {
         const categories = await AdminCategoryModel.find({});
         return { success: true, categories };
     } catch (error) {
-        return {
-            success: false,
-            error: "Internal server error"
-        }
+        return { success: false, error: `Internal server error: ${error}` };
     }
 }
 
@@ -45,10 +39,7 @@ export const updateAdminCategory = async (categoryId: string, categoryData: z.in
         await AdminCategoryModel.findByIdAndUpdate(categoryId, { $set: categoryData }, { new: true });
         return { success: true, message: "Admin Category updated successfully" };
     } catch (error) {
-        return {
-            success: false,
-            error: "Internal server error"
-        }
+        return { success: false, error: `Internal server error: ${error}` };
     }
 }
 
@@ -60,9 +51,6 @@ export const deleteAdminCategory = async (categoryId: string) => {
         await AdminCategoryModel.findByIdAndDelete(categoryId);
         return { success: true, message: "Admin Category deleted successfully" };
     } catch (error) {
-        return {
-            success: false,
-            error: "Internal server error"
-        }
+        return { success: false, error: `Internal server error: ${error}` };
     }
 }

@@ -14,10 +14,7 @@ export const addNewDeliveryAgent = async (agentData: z.infer<typeof agentValidat
             message: "Added delivery agent successfully"
         }
     } catch (error) {
-        return {
-            success: false,
-            error: "Internal server error"
-        }
+        return { success: false, error: `Internal server error: ${error}` };
     }
 }
 
@@ -29,10 +26,7 @@ export const getAllDeliveryAgents = async () => {
             agents
         }
     } catch (error) {
-        return {
-            success: false,
-            error: "Internal server error"
-        }
+        return { success: false, error: `Internal server error: ${error}` };
     }
 }
 
@@ -44,10 +38,7 @@ export const getOneDeliveryAgent = async (agentId: string) => {
             agent
         }
     } catch (error) {
-        return {
-            success: false,
-            error: "Internal server error"
-        }
+        return { success: false, error: `Internal server error: ${error}` };
     }
 }
 
@@ -67,10 +58,7 @@ export const updateAgentData = async (agentId: string, agentData: z.infer<typeof
             message: "Delivery agent updated successfully"
         }
     } catch (error) {
-        return {
-            success: false,
-            error: "Internal server error"
-        }
+        return { success: false, error: `Internal server error: ${error}` };
     }
 }
 
@@ -85,9 +73,6 @@ export const removeDeliveryAgent = async (agentId: string) => {
             message: "Delivery agent deleted successfully"
         }
     } catch (error) {
-        return {
-            success: false,
-            error: "Internal server error"
-        }
+        return { success: false, error: `Internal server error: ${error}` };
     }
 }

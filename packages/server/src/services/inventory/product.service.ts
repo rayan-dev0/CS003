@@ -15,10 +15,7 @@ export const addProduct = async (productData: z.infer<typeof productValidation>)
         await ProductModel.create(result.data);
         return { success: true, message: "Product created successfully" };
     } catch (error) {
-        return {
-            success: false,
-            error: `Internal server error: ${error}`
-        }
+        return { success: false, error: `Internal server error: ${error}` };
     }
 }
 
@@ -27,10 +24,7 @@ export const getAllProducts = async (sellerId: string) => {
         const products = await ProductModel.find({ seller: sellerId });
         return { success: true, products };
     } catch (error) {
-        return {
-            success: false,
-            error: "Internal server error"
-        }
+        return { success: false, error: `Internal server error: ${error}` };
     }
 }
 
@@ -47,10 +41,7 @@ export const updateProduct = async (productId: string, productData: z.infer<type
         await ProductModel.findByIdAndUpdate(productId, { $set: productData }, { new: true });
         return { success: true, message: "Product updated successfully" };
     } catch (error) {
-        return {
-            success: false,
-            error: "Internal server error"
-        }
+        return { success: false, error: `Internal server error: ${error}` };
     }
 }
 
@@ -62,23 +53,23 @@ export const deleteProduct = async (productId: string) => {
         await ProductModel.findByIdAndDelete(productId);
         return { success: true, message: "Product deleted successfully" };
     } catch (error) {
-        return {
-            success: false,
-            error: "Internal server error"
-        }
+        return { success: false, error: `Internal server error: ${error}` };
     }
 }
 
-export const uploadImgToAzure = async (fileBuffer: Buffer, originalName: string): Promise<string> => {
-    const blobServiceClient = BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION_STRING as string);
-    const containerClient = blobServiceClient.getContainerClient(process.env.AZURE_STORAGE_CONTAINER_NAME as string);
+export const uploadImgToAzure = async (fileBuffer: Buffer, originalName: string) => {
+    try {
+        const blobServiceClient = BlobServiceClient.fromConnectionString(process.env.AZURE_STORAGE_CONNECTION_STRING as string);
+        const containerClient = blobServiceClient.getContainerClient(process.env.AZURE_STORAGE_CONTAINER_NAME as string);
+        const blobName = `${uuidv4()}-${originalName}`;
+        const blockBlobClient = containerClient.getBlockBlobClient(blobName);
 
-    const blobName = `${uuidv4()}-${originalName}`;
-    const blockBlobClient = containerClient.getBlockBlobClient(blobName);
-
-    await blockBlobClient.uploadData(fileBuffer, {
-        blobHTTPHeaders: { blobContentType: 'image/png' }, 
-    });
-
-    return blockBlobClient.url;
+        await blockBlobClient.uploadData(fileBuffer, {
+            blobHTTPHeaders: { blobContentType: 'image/png' }, 
+        });
+        
+        return blockBlobClient.url;
+    } catch (error) {
+        return { success: false, error: `Internal server error: ${error}` };
+    }
 };
