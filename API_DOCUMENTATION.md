@@ -5,6 +5,44 @@ All endpoints require authentication. Different endpoints require different type
 - Admin authentication for admin-related endpoints
 - Seller authentication for seller-related endpoints
 
+## Customer Management (Admin Only)
+Base URL: `https://cs003-server.vercel.app/customer`
+
+### Create Customer Account
+- **Endpoint**: `POST https://cs003-server.vercel.app/customer/create`
+- **Authentication**: Admin
+- **Request Body**:
+  ```json
+  {
+    "name": "string",
+    "phone": "string",
+    "email": "string",
+    "address": "string"
+  }
+  ```
+- **Response**: 200 OK with created customer data or 400 Bad Request with error message
+
+### Get All Customers
+- **Endpoint**: `GET https://cs003-server.vercel.app/customer/get-all`
+- **Authentication**: Admin
+- **Response**: 200 OK with array of customers or 400 Bad Request with error message
+
+### Get Customer by Phone Number
+- **Endpoint**: `GET https://cs003-server.vercel.app/customer/get/:phoneNumber`
+- **Authentication**: Admin
+- **Response**: 200 OK with customer data or 400 Bad Request with error message
+
+### Update Customer
+- **Endpoint**: `PUT https://cs003-server.vercel.app/customer/update/:customerId`
+- **Authentication**: Admin
+- **Request Body**: Customer data to update
+- **Response**: 200 OK with updated customer data or 400 Bad Request with error message
+
+### Delete Customer
+- **Endpoint**: `DELETE https://cs003-server.vercel.app/customer/delete/:customerId`
+- **Authentication**: Admin
+- **Response**: 200 OK with deletion confirmation or 400 Bad Request with error message
+
 ## Seller Management (Admin Only)
 Base URL: `https://cs003-server.vercel.app/seller`
 
