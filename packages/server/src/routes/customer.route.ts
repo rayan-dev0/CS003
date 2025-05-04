@@ -7,7 +7,7 @@ const router = Router();
 router.use(authenticateAdminMiddleware);
 router.post('/create', createCustomerAccount);
 router.get('/get-all', fetchAllCustomerAccounts);
-router.get('/get/:customerId', fetchCustomerAccount);
+router.get('/get/:phoneNumber', fetchCustomerAccount);
 router.put('/update/:customerId', updateCustomerAccountData);
 router.delete('/delete/:customerId', deleteCustomerAccount);
 
