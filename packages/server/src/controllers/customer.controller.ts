@@ -22,7 +22,7 @@ export const fetchAllCustomerAccounts= async (req: Request, res: Response): Prom
 
 export const fetchCustomerAccount = async (req: Request, res: Response): Promise<void> => {
     try {
-        const result = await getOneCustomer(req.params.customerId);
+        const result = await getOneCustomer(req.params.phoneNumber);
         res.status(200).json(result);
     } catch (error) {
         res.status(400).json(getErrorMessage(error));

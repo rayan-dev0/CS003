@@ -30,9 +30,9 @@ export const getAllCustomers = async () => {
     }
 }
 
-export const getOneCustomer = async (customerId: string) => {
+export const getOneCustomer = async (phoneNumber: string) => {
     try {
-        const customer = await CustomerModel.findById(customerId);
+        const customer = await CustomerModel.findOne({ phoneNumber });
         return {
             success: true,
             customer
