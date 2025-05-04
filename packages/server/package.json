@@ -4,7 +4,7 @@
   "description": "Global server APIs for all panels",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon --exec ts-node src/server.ts",
+    "dev": "tsc -b && nodemon dist/server.js",
     "build": "tsc -b",
     "start": "tsc -b && node dist/server.js"
   },

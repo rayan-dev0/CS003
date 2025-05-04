@@ -3,6 +3,7 @@ import cors from "cors";
 import connectDatabase from "./db";
 import sellerRoute from "./routes/seller.route";
 import deliveryAgentRoute from "./routes/agent.route";
+import customerRoute from "./routes/customer.route";
 import adminCategoryRoute from "./routes/inventory/admin-category.route";
 import categoryRoute from "./routes/inventory/category.route";
 import productRoute from "./routes/inventory/product.route";
@@ -21,6 +22,7 @@ app.use('/delivery', deliveryAgentRoute);
 app.use('/inventory/admin-category', adminCategoryRoute);
 app.use('/inventory/category', categoryRoute);
 app.use('/inventory/product', productRoute);
+app.use('/customer', customerRoute);
 
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok' });

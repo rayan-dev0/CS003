@@ -18,6 +18,14 @@ export const agentValidation = z.object({
     sellers: z.array(z.string())
 });
 
+export const customerValidation = z.object({
+    fullName: z.string().min(2, "Full name must contain minimum 2 letters"),
+    email: z.string().email("Invalid email format").optional(),
+    password: z.string().min(6, "Password must be 6 characters long"),
+    phoneNumber: z.string().length(10, "Phone number contain 10 digits"),
+    address: z.string().min(5, "Address must contain minimum 5 letters").optional(),
+});
+
 export const adminCategoryValidation = z.object({
     name: z.string(),
     categories: z.array(z.string())

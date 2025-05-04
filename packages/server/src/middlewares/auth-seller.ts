@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Response } from "express";
 import { getErrorMessage } from "../utils/error";
 import SellerModel from "../schemas/seller.schema";
 import { AuthRequest } from "../utils/types";
@@ -12,7 +12,7 @@ export const authenticateSellerMiddleware = async (req: AuthRequest, res: Respon
             res.status(401).json({ error: "Unauthorized seller" });
             return;
         } else {
-            req.seller = header;
+            req.user = header;
             next();
         }
     } catch (error) {

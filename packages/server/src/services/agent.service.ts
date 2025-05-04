@@ -42,7 +42,7 @@ export const getOneDeliveryAgent = async (agentId: string) => {
     }
 }
 
-const updateAgentValidation =agentValidation.partial();
+const updateAgentValidation = agentValidation.partial();
 
 export const updateAgentData = async (agentId: string, agentData: z.infer<typeof updateAgentValidation>) => {
     try {

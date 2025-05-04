@@ -5,7 +5,7 @@ import { AuthRequest } from "../../utils/types";
 
 export const createNewCategory = async (req: AuthRequest, res: Response): Promise<void> => {
     try {
-        const result = await addCategory({...req.body, seller: req.seller});
+        const result = await addCategory({...req.body, seller: req.user});
         res.status(200).json(result);
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
@@ -14,7 +14,7 @@ export const createNewCategory = async (req: AuthRequest, res: Response): Promis
 
 export const fetchAllCategories = async (req: AuthRequest, res: Response): Promise<void> => {
     try {
-        const result = await getAllCategories(req.seller as string);
+        const result = await getAllCategories(req.user as string);
         res.status(200).json(result);
     } catch (error) {
         res.status(400).json(getErrorMessage(error));
