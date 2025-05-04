@@ -194,21 +194,32 @@ const Sidebar = React.forwardRef<
 
     if (isMobile) {
       return (
-        <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
-          <SheetContent
-            data-sidebar="sidebar"
-            data-mobile="true"
-            className="w-[--sidebar-width] bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden"
-            style={
-              {
-                "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
-              } as React.CSSProperties
-            }
-            side={side}
+        <>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="fixed left-2 top-2 z-50 md:hidden"
+            onClick={() => setOpenMobile(true)}
           >
-            <div className="flex h-full w-full flex-col">{children}</div>
-          </SheetContent>
-        </Sheet>
+            <PanelLeft className="h-4 w-4" />
+            <span className="sr-only">Open Menu</span>
+          </Button>
+          <Sheet open={openMobile} onOpenChange={setOpenMobile} {...props}>
+            <SheetContent
+              data-sidebar="sidebar"
+              data-mobile="true"
+              className="w-[--sidebar-width] bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden transition-all duration-300 ease-in-out"
+              style={
+                {
+                  "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
+                } as React.CSSProperties
+              }
+              side={side}
+            >
+              <div className="flex h-full w-full flex-col overflow-y-auto">{children}</div>
+            </SheetContent>
+          </Sheet>
+        </>
       )
     }
 
