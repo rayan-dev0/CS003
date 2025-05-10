@@ -1,3 +1,4 @@
+import { ItemType } from './types';
 import { z } from "zod";
 
 export const sellerValidation = z.object({
@@ -48,4 +49,4 @@ export const productValidation = z.object({
     category: z.string(),
     images: z.array(z.string()).optional(),
     status: z.enum(['Out of Stock', 'In Stock', 'Low Stock']).default('In Stock'),
-})
+});

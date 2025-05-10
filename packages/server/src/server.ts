@@ -7,6 +7,7 @@ import customerRoute from "./routes/customer.route";
 import adminCategoryRoute from "./routes/inventory/admin-category.route";
 import categoryRoute from "./routes/inventory/category.route";
 import productRoute from "./routes/inventory/product.route";
+import orderRoute from "./routes/order.route";
 import dotenv from "dotenv";
 import path from "path";
 dotenv.config({ path: path.resolve(__dirname, "../.env.local")});
@@ -23,6 +24,7 @@ app.use('/inventory/admin-category', adminCategoryRoute);
 app.use('/inventory/category', categoryRoute);
 app.use('/inventory/product', productRoute);
 app.use('/customer', customerRoute);
+app.use('/order', orderRoute);
 
 app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok' });
