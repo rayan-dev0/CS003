@@ -4,6 +4,7 @@
 All endpoints require authentication. Different endpoints require different types of authentication:
 - Admin authentication for admin-related endpoints
 - Seller authentication for seller-related endpoints
+- Customer authentication for customer-related endpoints
 
 ## Customer Management (Admin Only)
 Base URL: `https://cs003-server.vercel.app/customer`
@@ -205,6 +206,80 @@ Base URL: `https://cs003-server.vercel.app/inventory/admin-category`
 - **Endpoint**: `DELETE https://cs003-server.vercel.app/inventory/admin-category/delete/:adminCategoryId`
 - **Authentication**: Admin
 - **Response**: 200 OK with deletion confirmation or 400 Bad Request with error message
+
+## Order Management
+Base URL: `https://cs003-server.vercel.app/orders`
+
+### Create Order
+- **Endpoint**: `POST https://cs003-server.vercel.app/orders`
+- **Authentication**: Customer
+- **Request Body**:
+  ```json
+  {
+    "customerId": "string",
+    "sellerId": "string",
+    "items": [
+      {
+        "productId": "string",
+        "quantity": "number",
+        "price": "number",
+        "name": "string"
+      }
+    ],
+    "totalAmount": "number",
+    "deliveryAddress": {
+      "street": "string",
+      "city": "string",
+      "state": "string",
+      "pincode": "string",
+      "landmark": "string (optional)"
+    },
+    "paymentMethod": "cash | online"
+  }
+  ```
+- **Response**: 201 Created with order data or 400 Bad Request with error message
+
+### Get Customer Orders
+- **Endpoint**: `GET https://cs003-server.vercel.app/orders/customer/:customerId`
+- **Authentication**: Customer
+- **Response**: 200 OK with array of orders or 400 Bad Request with error message
+
+### Get Order by ID
+- **Endpoint**: `GET https://cs003-server.vercel.app/orders/:orderId`
+- **Authentication**: Customer/Seller
+- **Response**: 200 OK with order data or 404 Not Found with error message
+
+### Cancel Order
+- **Endpoint**: `POST https://cs003-server.vercel.app/orders/:orderId/cancel`
+- **Authentication**: Customer
+- **Response**: 200 OK with cancelled order data or 404 Not Found with error message
+
+### Get Seller Orders
+- **Endpoint**: `GET https://cs003-server.vercel.app/orders/seller/:sellerId`
+- **Authentication**: Seller
+- **Response**: 200 OK with array of orders or 400 Bad Request with error message
+
+### Update Order Status
+- **Endpoint**: `PATCH https://cs003-server.vercel.app/orders/:orderId/status`
+- **Authentication**: Seller
+- **Request Body**:
+  ```json
+  {
+    "status": "confirmed | preparing | ready_for_pickup | out_for_delivery | delivered | cancelled"
+  }
+  ```
+- **Response**: 200 OK with updated order data or 404 Not Found with error message
+
+### Update Payment Status
+- **Endpoint**: `PATCH https://cs003-server.vercel.app/orders/:orderId/payment`
+- **Authentication**: Customer/Seller
+- **Request Body**:
+  ```json
+  {
+    "paymentStatus": "completed | failed"
+  }
+  ```
+- **Response**: 200 OK with updated order data or 404 Not Found with error message
 
 ## Error Responses
 All endpoints may return a 400 Bad Request with the following error format:
