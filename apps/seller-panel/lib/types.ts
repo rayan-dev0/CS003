@@ -58,7 +58,7 @@ export interface ProductsTableColumns {
     admin_category: string
 }
 
-export interface ProductsTableProps<TData, TValue> {
+export interface TableProps<TData, TValue> {
     data: TData[],
     columns: ColumnDef<TData, TValue>[]
 }
@@ -73,4 +73,25 @@ export interface DeliveryAgentType {
     email: string;
     phoneNumber: string;
     sellers: string[];
+}
+
+export interface OrderTableColumns {
+    _id: string,
+    customerId: string,
+    customerName?: string,
+    phoneNumber?: string,
+    totalAmount: number,
+    status: string,
+    paymentStatus: string,
+    timestamp: string,
+    items: any,
+    deliveryAddress: string,
+    paymentMethod: "cash" | "online"
+}
+
+export interface CustomerType {
+    _id: string,
+    fullName: string,
+    phoneNumber: number,
+    email?: string
 }
