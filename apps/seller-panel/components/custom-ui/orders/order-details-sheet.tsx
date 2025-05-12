@@ -1,11 +1,11 @@
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ArrowRightCircle, ArrowUpDown } from 'lucide-react';
+import { ArrowRightCircle } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { OrderTableColumns } from '@/lib/types';
 import axios from 'axios';
 import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from '@/components/ui/select';
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Loader2, CheckCircle, XCircle } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 
