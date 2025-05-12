@@ -1,9 +1,13 @@
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
-import { ArrowUpDown } from 'lucide-react';
-import { useState } from 'react';
+import { ArrowRight, ArrowRightCircle, ArrowUpDown } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import { OrderTableColumns } from '@/lib/types';
-import { Badge } from '@/components/ui/badge';
+import axios from 'axios';
+import { Select, SelectTrigger, SelectContent, SelectItem, SelectValue } from '@/components/ui/select';
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
+import { Loader2, CheckCircle, XCircle } from 'lucide-react';
+import { useSession } from 'next-auth/react';
 
 interface OrderDetailsSheetProps {
   order: OrderTableColumns;
@@ -11,20 +15,75 @@ interface OrderDetailsSheetProps {
 
 export function OrderDetailsSheet({ order }: OrderDetailsSheetProps) {
 
+    const session = useSession();
+    const userId = session?.data?.user?.id;
     const [open, setOpen] = useState(false);
+    const [status, setStatus] = useState(order.status);
+    const [paymentStatus, setPaymentStatus] = useState(order.paymentStatus);
+    const [agentId, setAgentId] = useState<string | undefined>(order.agentId || undefined);
+    const [agents, setAgents] = useState<any[]>([]);
+    const [loading, setLoading] = useState(false);
+    const [success, setSuccess] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+    const [confirmOpen, setConfirmOpen] = useState(false);
+    const [pendingAction, setPendingAction] = useState<'status' | 'paymentStatus' | 'agentId' | null>(null);
+
+    useEffect(() => {
+        async function fetchAgents() {
+            try {
+                const res = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URI}/delivery/get-all-agents`, {
+                    headers: {
+                        contentType: "application/json",
+                        adminKey: `Bearer-${process.env.NEXT_PUBLIC_ADMIN_SECRET_KEY}`
+                    }
+                });
+                const sellerSpecificDeliveryAgents = res.data.agents.filter((agent: any) => agent.sellers.includes(userId as string));
+                setAgents(sellerSpecificDeliveryAgents || []);
+            } catch (e) {
+                setAgents([]);
+            }
+        }
+        if(userId) {
+            fetchAgents();
+        }
+    }, [session]);
+
+    const handleUpdate = async () => {
+        setLoading(true);
+        setError(null);
+        setSuccess(false);
+        try {
+            const payload: any = { };
+            if (pendingAction === 'status') payload.status = status;
+            if (pendingAction === 'paymentStatus') payload.paymentStatus = paymentStatus;
+            if (pendingAction === 'agentId') payload.agentId = agentId;
+            await axios.put(`${process.env.NEXT_PUBLIC_BACKEND_URI}/order/update/${order._id}`, payload, {
+                headers: {
+                    contentType: "application/json",
+                    adminKey: `Bearer-${process.env.NEXT_PUBLIC_ADMIN_SECRET_KEY}`
+                }
+            });
+            setSuccess(true);
+        } catch (e: any) {
+            setError(e?.response?.data?.message || 'Update failed');
+        } finally {
+            setLoading(false);
+            setConfirmOpen(false);
+            setTimeout(() => setSuccess(false), 2000);
+        }
+    };
 
     return (
         <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
             <Button variant="ghost" size="icon">
-            <ArrowUpDown className="h-4 w-4" />
+            <ArrowRightCircle />
             </Button>
         </SheetTrigger>
-        <SheetContent side="right" className="w-[500px] sm:w-[540px] bg-white">
+        <SheetContent side="right" className="w-[500px] sm:w-[540px] overflow-y-scroll bg-white">
             <SheetHeader>
             <SheetTitle>Order Details</SheetTitle>
             </SheetHeader>
-            {/* Status Badge - prominent and colored */}
             <div className="w-full flex justify-center my-4">
                 {(() => {
                     let bg = 'bg-gray-200';
@@ -113,6 +172,75 @@ export function OrderDetailsSheet({ order }: OrderDetailsSheetProps) {
                 <span className="capitalize">{order.paymentStatus}</span>
                 </div>
             </div>
+            </div>
+            <div className="mt-8">
+              <h3 className="font-semibold mb-2 text-lg">Actions</h3>
+              <div className="space-y-4">
+              <div>
+                  <label className="block text-xs font-medium mb-1">Assign Delivery Agent</label>
+                  <Select value={agentId} onValueChange={val => { setAgentId(val); setPendingAction('agentId'); setConfirmOpen(true); }}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select agent" />
+                    </SelectTrigger>
+                    <SelectContent className='bg-white'>
+                      {agents.map(agent => (
+                        <SelectItem key={agent._id} value={agent._id}>{agent.username} ({agent.phoneNumber})</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                {/* Change Status */}
+                <div>
+                  <label className="block text-xs font-medium mb-1">Change Order Status</label>
+                  <Select value={status} onValueChange={val => { setStatus(val); setPendingAction('status'); setConfirmOpen(true); }}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select status" />
+                    </SelectTrigger>
+                    <SelectContent className='bg-white'>
+                      <SelectItem value="pending">Pending</SelectItem>
+                      <SelectItem value="confirmed">Confirmed</SelectItem>
+                      <SelectItem value="preparing">Preparing</SelectItem>
+                      <SelectItem value="ready_for_pickup">Ready for Pickup</SelectItem>
+                      <SelectItem value="out_for_delivery">Out for Delivery</SelectItem>
+                      <SelectItem value="delivered">Delivered</SelectItem>
+                      <SelectItem value="cancelled">Cancelled</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                {/* Change Payment Status */}
+                <div>
+                  <label className="block text-xs font-medium mb-1">Change Payment Status</label>
+                  <Select value={paymentStatus} onValueChange={val => { setPaymentStatus(val); setPendingAction('paymentStatus'); setConfirmOpen(true); }}>
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Select payment status" />
+                    </SelectTrigger>
+                    <SelectContent className='bg-white'>
+                      <SelectItem value="pending">Pending</SelectItem>
+                      <SelectItem value="paid">Paid</SelectItem>
+                      <SelectItem value="failed">Failed</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                {/* Assign Delivery Agent */}
+                
+              </div>
+              {/* Confirmation Dialog */}
+              <Dialog open={confirmOpen} onOpenChange={setConfirmOpen}>
+                <DialogContent className='bg-white'>
+                  <DialogHeader>
+                    <DialogTitle>Confirm Update</DialogTitle>
+                  </DialogHeader>
+                  <div className="py-2 text-sm">Are you sure you want to update this order?</div>
+                  <DialogFooter>
+                    <Button variant="outline" onClick={() => setConfirmOpen(false)}>Cancel</Button>
+                    <Button onClick={handleUpdate} disabled={loading}>
+                      {loading ? <Loader2 className="animate-spin h-4 w-4 mr-2" /> : null} Confirm
+                    </Button>
+                  </DialogFooter>
+                  {success && <div className="flex items-center text-green-600 mt-2"><CheckCircle className="h-4 w-4 mr-1" /> Update successful!</div>}
+                  {error && <div className="flex items-center text-red-600 mt-2"><XCircle className="h-4 w-4 mr-1" /> {error}</div>}
+                </DialogContent>
+              </Dialog>
             </div>
         </SheetContent>
         </Sheet>

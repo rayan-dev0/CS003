@@ -86,7 +86,8 @@ export interface OrderTableColumns {
     timestamp: string,
     items: any,
     deliveryAddress: string,
-    paymentMethod: "cash" | "online"
+    paymentMethod: "cash" | "online",
+    agentId?: string
 }
 
 export interface CustomerType {
