@@ -37,7 +37,7 @@ const Dashboard = () => {
     const userName = session?.data?.user?.name;
 
     return (
-        <div className="min-h-screen bg-gray-50 flex flex-col">
+        <div className="min-h-screen bg-gray-50 flex flex-col w-full">
             {/* Top Navigation Bar */}
             <nav className="w-full bg-white shadow flex items-center justify-between px-4 md:px-8 py-4 mb-4 sticky top-0 z-10">
                 <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-gray-800">Dashboard</h1>

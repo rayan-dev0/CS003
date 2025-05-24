@@ -80,7 +80,7 @@ export function OrderDetailsSheet({ order }: OrderDetailsSheetProps) {
             <ArrowRightCircle />
             </Button>
         </SheetTrigger>
-        <SheetContent side="right" className="w-[500px] sm:w-[540px] overflow-y-scroll bg-white">
+        <SheetContent side="right" className="md:w-[500px] w-full overflow-y-scroll bg-white">
             <SheetHeader>
             <SheetTitle>Order Details</SheetTitle>
             </SheetHeader>
